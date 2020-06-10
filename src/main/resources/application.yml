@@ -1,0 +1,47 @@
+server:
+    port: 8080
+
+spring:
+    thymeleaf:
+        # 开发时关闭缓存不然没法看到实时页面
+        cache: false
+        # 启用不严格检查
+        mode: LEGACYHTML5
+    #datasource
+    datasource:
+        url: jdbc:mysql://localhost:3306/wcsy?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+        username: root
+        password: root
+        driver-class-name: com.mysql.jdbc.Driver
+
+# Elasticsearch配置
+#   elasticsearch:
+#   hostname: 10.15.249.121
+#   port: 9200
+
+
+#mybatis plus配置
+mybatis-plus:
+    mapper-locations: classpath:mapper/*.xml
+    type-aliases-package: com.example.entity
+    global-config:
+        db-config:
+            id-type: auto
+            field-strategy: not_empty
+            #驼峰下划线转换
+            column-underline: true
+            #逻辑删除配置
+            logic-delete-value: 0
+            logic-not-delete-value: 1
+            db-type: mysql
+        refresh: false
+    configuration:
+        map-underscore-to-camel-case: true
+        cache-enabled: false
+#http://localhost:8080/swagger-ui.html 访问swagger界面
+
+
+
+
+
+
