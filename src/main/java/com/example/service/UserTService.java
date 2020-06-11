@@ -7,7 +7,7 @@ import com.example.model.vo.UserTVO;
  * @Author: liuyl
  * @Date: 2020/6/10 10:19
  * @Version: 1.0
- * @Description:
+ * @Description:用户service
  */
 public interface UserTService {
 

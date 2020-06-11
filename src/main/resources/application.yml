@@ -38,6 +38,16 @@ mybatis-plus:
     configuration:
         map-underscore-to-camel-case: true
         cache-enabled: false
+
+
+#pagehelper分页插件配置
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+
 #http://localhost:8080/swagger-ui.html 访问swagger界面
 
 

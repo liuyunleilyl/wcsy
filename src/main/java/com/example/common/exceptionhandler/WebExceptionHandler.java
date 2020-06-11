@@ -15,12 +15,19 @@ import javax.validation.ConstraintViolationException;
  * @Author: liuyl
  * @Date: 2020/4/29 11:29
  * @Version: 1.0
- * @Description: 参数校验统一异常处理
+ * @Description: 验统一异常处理
  */
 @ControllerAdvice
 @Order(1)
 public class WebExceptionHandler {
     private final static org.slf4j.Logger logger = LoggerFactory.getLogger(WebExceptionHandler.class);
+
+    //拦截自定义异常
+    @ExceptionHandler(FailException.class)
+    @ResponseBody
+    public RawResponse FailExceptionHandler(FailException e) {
+        return new RawResponse("0001",e.getMessage());
+    }
 
     //处理Get请求中 使用@Valid 验证路径中请求实体校验失败后抛出的异常，详情继续往下看代码
     @ExceptionHandler(BindException.class)
