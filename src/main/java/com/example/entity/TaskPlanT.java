@@ -90,7 +90,15 @@ public class TaskPlanT {
      * 任务完成标记（0：未完成；1：已经完成）
      */
     @TableField("WCBJ")
-    private Date wcbj;
+    private String wcbj;
+
+    public String getWcbj() {
+        return wcbj;
+    }
+
+    public void setWcbj(String wcbj) {
+        this.wcbj = wcbj;
+    }
 
     /**
      * 任务计划表id
@@ -284,19 +292,5 @@ public class TaskPlanT {
         this.sj = sj;
     }
 
-    /**
-     * 任务完成标记（0：未完成；1：已经完成）
-     * @return WCBJ 任务完成标记（0：未完成；1：已经完成）
-     */
-    public Date getWcbj() {
-        return wcbj;
-    }
 
-    /**
-     * 任务完成标记（0：未完成；1：已经完成）
-     * @param wcbj 任务完成标记（0：未完成；1：已经完成）
-     */
-    public void setWcbj(Date wcbj) {
-        this.wcbj = wcbj;
-    }
 }

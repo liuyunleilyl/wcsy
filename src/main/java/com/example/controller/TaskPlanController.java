@@ -3,6 +3,7 @@ package com.example.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.example.common.restutils.ResultData;
 import com.example.entity.TaskPlanT;
+import com.example.model.vo.TaskPlanTListResVO;
 import com.example.model.vo.TaskPlanTVO;
 import com.example.model.vo.UserNamePasswordVO;
 import com.example.model.vo.UserTVO;
@@ -31,6 +32,7 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/taskPlan")
 @Api(tags = {"任务计划"})
+@Validated
 public class TaskPlanController {
     private final static Logger logger = LoggerFactory.getLogger(TaskPlanController.class);
 
@@ -43,9 +45,9 @@ public class TaskPlanController {
             @ApiImplicitParam(name = "userCode", value = "用户账号", required = true, dataType = "String",
                     example = "liuyl", paramType = "query")
     })
-    public ResultData<Page<TaskPlanTVO>> taskPlanList(
-            @NotEmpty(message = "name 不能为空") @RequestParam("userCode")String userCode){
-        Page<TaskPlanT> pageList =  taskPlanList.taskPlanList(userCode);
+    public ResultData<Page<TaskPlanTListResVO>> taskPlanList(
+            @NotEmpty(message = "用户账号不能为空") @RequestParam(value = "userCode",required = true)String userCode){
+        Page<TaskPlanTListResVO> pageList =  taskPlanList.taskPlanList(userCode);
         return ResultData.success(pageList);
     }
 

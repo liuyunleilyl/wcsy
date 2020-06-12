@@ -11,6 +11,7 @@ import com.example.entity.TaskPlanT;
 import com.example.entity.UserT;
 import com.example.mapper.TaskPlanTMapper;
 import com.example.mapper.UserTMapper;
+import com.example.model.vo.TaskPlanTListResVO;
 import com.example.model.vo.TaskPlanTVO;
 import com.example.model.vo.UserNamePasswordVO;
 import com.example.model.vo.UserTVO;
@@ -36,14 +37,10 @@ public class TaskPlanServiceImpl extends ServiceImpl<TaskPlanTMapper, TaskPlanT>
     private TaskPlanTMapper taskPlanTMapper;
 
     @Override
-    public Page<TaskPlanT> taskPlanList(String userCode) {
-        Page<TaskPlanT> page = PageFactory.defaultPage();
-        List<TaskPlanT> list = taskPlanTMapper.selectPage(page,
-                new EntityWrapper<TaskPlanT>()
-        );
-        log.error("total1 {}",page.getTotal());
-        log.error("list {}",list.size());
-        page.setRecords(list);
+    public Page<TaskPlanTListResVO> taskPlanList(String userCode) {
+        Page<TaskPlanTListResVO> page = PageFactory.defaultPage();
+        List<TaskPlanTListResVO> resList = taskPlanTMapper.queryMineUnAchieveTaskPlan(page,userCode);
+        page.setRecords(resList);
         return page;
     }
 }

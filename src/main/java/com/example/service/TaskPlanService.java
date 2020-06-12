@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.example.entity.TaskPlanT;
+import com.example.model.vo.TaskPlanTListResVO;
 import com.example.model.vo.TaskPlanTVO;
 
 import java.util.List;
@@ -21,5 +22,5 @@ public interface TaskPlanService {
      * @Return: com.baomidou.mybatisplus.plugins.Page<com.example.model.vo.TaskPlanTVO>
      * @Description: 作业员-我的工作-查看自己的任务计划
      */
-    Page<TaskPlanT> taskPlanList(String userCode);
+    Page<TaskPlanTListResVO> taskPlanList(String userCode);
 }

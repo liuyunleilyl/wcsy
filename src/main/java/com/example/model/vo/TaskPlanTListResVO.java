@@ -1,9 +1,5 @@
 package com.example.model.vo;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -20,8 +16,8 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel("任务计划VO")
-public class TaskPlanTVO {
+@ApiModel("任务计划封装VO")
+public class TaskPlanTListResVO {
     /**
      * 任务计划表id
      */
@@ -99,4 +95,11 @@ public class TaskPlanTVO {
      */
     @ApiModelProperty("任务完成标记（0：未完成；1：已经完成）")
     private String wcbj;
+
+    @ApiModelProperty("作业员真实姓名")
+    private String userName;
+    @ApiModelProperty("工作内容年份")
+    private String taskYear;
+    @ApiModelProperty("工作内容名称")
+    private String taskName;
 }
