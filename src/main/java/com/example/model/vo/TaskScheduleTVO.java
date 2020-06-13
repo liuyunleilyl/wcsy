@@ -1,15 +1,14 @@
 package com.example.model.vo;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 /**
  * @author liuly 
@@ -23,79 +22,93 @@ public class TaskScheduleTVO {
     /**
      * 任务进度表id
      */
-    @ApiModelProperty("任务进度表id")
+    @ApiModelProperty(value = "任务进度表id",example = "efecdbb0c0974665a4eaf5e1a5ce4a41")
     private String taskScheduleId;
 
     /**
      * 任务ID
      */
-    @ApiModelProperty("任务ID")
+    @ApiModelProperty(value = "任务ID",example = "1")
     private String taskId;
 
     /**
      * 作业员用户账号
      */
-    @ApiModelProperty("作业员用户账号")
+    @ApiModelProperty(value = "作业员用户账号",example = "liuyl")
     private String userCode;
 
     /**
      * 检查员中文名
      */
-    @ApiModelProperty("检查员中文名")
+    @ApiModelProperty(value = "检查员中文名",example = "马云")
     private String jcyName;
 
     /**
      * 地理分区
      */
-    @ApiModelProperty("地理分区")
+    @ApiModelProperty(value = "地理分区",example = "山东")
     private String dlfq;
 
     /**
      * 采集
      */
-    @ApiModelProperty("采集")
-    private String cj;
+    @Min(0)
+    @Max(100)
+    @ApiModelProperty(value = "采集",example = "100")
+    private String cj = "0";
 
     /**
      * 核查
      */
-    @ApiModelProperty("核查")
-    private String hc;
+    @Min(0)
+    @Max(100)
+    @ApiModelProperty(value = "核查",example = "100")
+    private String hc = "0";
 
     /**
      * 编辑
      */
-    @ApiModelProperty("编辑")
-    private String bj;
+    @Min(0)
+    @Max(100)
+    @ApiModelProperty(value = "编辑",example = "100")
+    private String bj = "0";
 
     /**
      * 质检
      */
-    @ApiModelProperty("质检")
-    private String zj;
+    @Min(0)
+    @Max(100)
+    @ApiModelProperty(value = "质检",example = "100")
+    private String zj = "0";
 
     /**
      * 二查
      */
-    @ApiModelProperty("二查")
-    private String ec;
+    @Min(0)
+    @Max(100)
+    @ApiModelProperty(value = "二查",example = "100")
+    private String ec = "0";
 
     /**
      * 合库
      */
-    @ApiModelProperty("合库")
-    private String hk;
+    @Min(0)
+    @Max(100)
+    @ApiModelProperty(value = "合库",example = "100")
+    private String hk = "0";
 
     /**
      * 上交
      */
-    @ApiModelProperty("上交")
-    private String sj;
+    @Min(0)
+    @Max(100)
+    @ApiModelProperty(value = "上交",example = "100")
+    private String sj = "0";
 
     /**
      * 任务完成标记（0：未完成；1：已经完成）
      */
-    @ApiModelProperty("任务完成标记")
-    private String wcbj;
+    @ApiModelProperty(value = "任务完成标记",example = "0")
+    private String wcbj = "0";
 
 }

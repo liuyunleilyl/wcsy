@@ -56,7 +56,7 @@ public class TaskScheduleController {
     @PostMapping("/newTaskSchedule")
     @ApiOperation(value = "作业员-我的工作-根据某一项任务计划添加该任务的任务进度页面-保存",
             notes = "作业员-我的工作-根据某一项任务计划添加该任务的任务进度页面-保存")
-    public SuccessResultData newTaskSchedule(@RequestBody TaskScheduleTVO taskScheduleTVO){
+    public SuccessResultData newTaskSchedule(@Validated @RequestBody TaskScheduleTVO taskScheduleTVO){
         taskScheduleService.newTaskSchedule(taskScheduleTVO);
         return ResultData.success();
     }
