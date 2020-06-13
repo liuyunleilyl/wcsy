@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.example.common.restutils.ResultData;
+import com.example.common.restutils.SuccessResultData;
 import com.example.model.vo.TaskPlanTListResVO;
 import com.example.model.vo.TaskScheduleTResVO;
 import com.example.model.vo.TaskScheduleTVO;
@@ -15,10 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -55,5 +53,11 @@ public class TaskScheduleController {
         return ResultData.success(taskScheduleTResVO);
     }
 
-
+    @PostMapping("/newTaskSchedule")
+    @ApiOperation(value = "作业员-我的工作-根据某一项任务计划添加该任务的任务进度页面-保存",
+            notes = "作业员-我的工作-根据某一项任务计划添加该任务的任务进度页面-保存")
+    public SuccessResultData newTaskSchedule(@RequestBody TaskScheduleTVO taskScheduleTVO){
+        taskScheduleService.newTaskSchedule(taskScheduleTVO);
+        return ResultData.success();
+    }
 }

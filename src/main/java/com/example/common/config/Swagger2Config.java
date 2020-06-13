@@ -60,8 +60,8 @@ public class Swagger2Config {
      * @return
      */
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("knot服务接口定义和规范").description("knot服务接口定义和规范")
-                .termsOfServiceUrl("http://****.com/").contact(new Contact("jjzhao@****.com", "", "")).version("1.0")
-                .license("版权所有 ©***信息科技有限公司").build();
+        return new ApiInfoBuilder().title("Restful服务接口定义和规范").description("Restful服务接口定义和规范")
+                .termsOfServiceUrl("http://****.com/").contact(new Contact("liuyl", "", "")).version("1.0")
+                .license("版权所有 ©***仿冒必究").build();
     }
 }
