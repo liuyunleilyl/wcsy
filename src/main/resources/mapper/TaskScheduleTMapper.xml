@@ -29,5 +29,16 @@
     -->
     TASK_PLAN_ID, TASK_ID, USER_CODE, JCY_NAME, DLFQ, CJ, HC, BJ, ZJ, EC, HK, SJ, WCBJ
   </sql>
+  <select id="newTaskScheduleInit" resultType="com.example.model.vo.TaskScheduleTResVO">
+    select a.*,b.USER_NAME,c.TASK_YEAR,c.TASK_NAME
+    from TASK_SCHEDULE_T a
+    left join user_t b
+    on a.USER_CODE = b.USER_CODE
+    left join task_t c
+    on a.TASK_ID = c.TASK_ID
+    where a.USER_CODE = #{userCode}
+    and a.TASK_ID = #{taskId}
+  </select>
+
 
 </mapper>

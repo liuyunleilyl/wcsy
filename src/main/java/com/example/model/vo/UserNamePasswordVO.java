@@ -2,7 +2,10 @@ package com.example.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -14,6 +17,9 @@ import javax.validation.constraints.NotEmpty;
  */
 @Data
 @ApiModel("用户登陆VO")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserNamePasswordVO {
     /**
      * 用户账号

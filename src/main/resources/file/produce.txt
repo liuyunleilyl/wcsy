@@ -1,0 +1,10 @@
+//File file = ResourceUtils.getFile("classpath:templates/b_dfd.txt");
+ File file = ResourceUtils.getFile("classpath:templates");
+if(file.exists()){
+    File[] files = file.listFiles();
+    if(files != null){
+        for(File childFile:files){
+            System.out.println(childFile.getName());
+        }
+    }
+}
