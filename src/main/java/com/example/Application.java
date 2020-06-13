@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- *
- * @author wliduo[i@dolyw.com]
- * @date 2019/7/31 18:00
+ * @Author: liuyl
+ * @Date: 2020/6/13 14:53
+ * @Description:启动类配置
  */
 @SpringBootApplication
 @MapperScan("com.example.mapper")

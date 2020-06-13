@@ -15,8 +15,8 @@ public class TaskScheduleT {
     /**
      * 任务进度表id
      */
-    @TableId(value = "TASK_PLAN_ID", type = IdType.UUID)
-    private String taskPlanId;
+    @TableId(value = "TASK_SCHEDULE_ID", type = IdType.UUID)
+    private String taskScheduleId;
 
     /**
      * 任务ID
@@ -90,20 +90,12 @@ public class TaskScheduleT {
     @TableField("WCBJ")
     private String wcbj;
 
-    /**
-     * 任务进度表id
-     * @return TASK_PLAN_ID 任务进度表id
-     */
-    public String getTaskPlanId() {
-        return taskPlanId;
+    public String getTaskScheduleId() {
+        return taskScheduleId;
     }
 
-    /**
-     * 任务进度表id
-     * @param taskPlanId 任务进度表id
-     */
-    public void setTaskPlanId(String taskPlanId) {
-        this.taskPlanId = taskPlanId;
+    public void setTaskScheduleId(String taskScheduleId) {
+        this.taskScheduleId = taskScheduleId;
     }
 
     /**
