@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author liuly 
@@ -28,12 +29,14 @@ public class TaskScheduleTVO {
     /**
      * 任务ID
      */
+    @NotEmpty(message = "任务ID不能为空!!")
     @ApiModelProperty(value = "任务ID",example = "1")
     private String taskId;
 
     /**
      * 作业员用户账号
      */
+    @NotEmpty(message = "作业员用户账号不能为空!!")
     @ApiModelProperty(value = "作业员用户账号",example = "liuyl")
     private String userCode;
 

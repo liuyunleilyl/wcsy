@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.example.model.vo.TaskScheduleTResVO;
 import com.example.model.vo.TaskScheduleTVO;
 
@@ -28,4 +29,13 @@ public interface TaskScheduleService {
      * @Description: 作业员-我的工作-根据某一项任务计划添加该任务的任务进度页面-保存
      */
     void newTaskSchedule(TaskScheduleTVO taskScheduleTVO);
+
+    /**
+     * @Author: liuyl
+     * @Date: 2020/6/13 19:39
+     * @Param: [userCode]
+     * @Return: com.baomidou.mybatisplus.plugins.Page<com.example.model.vo.TaskScheduleTResVO>
+     * @Description: 作业员-进度公示-查看自己未完成的和自己相关的任务进度
+     */
+    Page<TaskScheduleTResVO> unDoneAllSchedule(String userCode);
 }

@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -13,6 +16,9 @@ import java.util.Date;
  */
 @TableName("task_plan_t")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TaskPlanT {
     /**
      * 任务计划表id

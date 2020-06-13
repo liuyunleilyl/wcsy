@@ -40,5 +40,20 @@
     and a.TASK_ID = #{taskId}
   </select>
 
-
+  <select id="unDoneAllSchedule" resultType="com.example.model.vo.TaskScheduleTResVO">
+    select a.*,b.USER_NAME,c.TASK_YEAR,c.TASK_NAME
+    from task_schedule_t a
+    left join user_t b
+    on a.USER_CODE = b.USER_CODE
+    left join task_t c
+    on a.TASK_ID = c.TASK_ID
+    where a.TASK_ID in
+    (
+        select TASK_ID
+        from
+        task_schedule_t
+        where USER_CODE = #{userCode}
+        and WCBJ = '0'
+    )
+  </select>
 </mapper>

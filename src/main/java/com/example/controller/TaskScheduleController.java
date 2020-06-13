@@ -60,4 +60,17 @@ public class TaskScheduleController {
         taskScheduleService.newTaskSchedule(taskScheduleTVO);
         return ResultData.success();
     }
+
+    @GetMapping("/unDoneAllSchedule")
+    @ApiOperation(value = "作业员-进度公示-查看自己未完成的和自己相关的任务进度",
+            notes = "作业员-进度公示-查看自己未完成的和自己相关的任务进度")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userCode", value = "用户账号", required = true, dataType = "String",
+                    example = "liuyl", paramType = "query")
+    })
+    public ResultData<Page<TaskScheduleTResVO>> unDoneAllSchedule(
+            @NotEmpty(message = "用户账号不能为空") @RequestParam(value = "userCode",required = true)String userCode){
+        Page<TaskScheduleTResVO> pageList =  taskScheduleService.unDoneAllSchedule(userCode);
+        return ResultData.success(pageList);
+    }
 }

@@ -1,12 +1,16 @@
 package com.example.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.example.common.exceptionhandler.FailException;
+import com.example.common.pagehelper.PageFactory;
 import com.example.common.tool.ToolUtil;
+import com.example.entity.TaskPlanT;
 import com.example.entity.TaskScheduleT;
 import com.example.entity.TaskT;
 import com.example.entity.UserT;
+import com.example.mapper.TaskPlanTMapper;
 import com.example.mapper.TaskScheduleTMapper;
 import com.example.mapper.TaskTMapper;
 import com.example.mapper.UserTMapper;
@@ -18,8 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import java.util.List;
 
 /**
@@ -35,7 +37,8 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
     private UserTMapper userTMapper;
     @Autowired
     private TaskTMapper taskTMapper;
-
+    @Autowired
+    private TaskPlanTMapper taskPlanTMapper;
     @Override
     public TaskScheduleTResVO newTaskScheduleInit(String userCode, String taskId) {
         TaskScheduleTResVO resVO = new TaskScheduleTResVO();
@@ -79,17 +82,36 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
         //进度表id
         String taskScheduleId = insertTaskScheduleT.getTaskScheduleId();
         //判断任务完成标记
+        String wcbj = getWcbj(insertTaskScheduleT);//完成标记
         if(ToolUtil.isEmpty(taskScheduleId)){//新增
-            String wcbj = getWcbj(insertTaskScheduleT);//完成标记
             insertTaskScheduleT.setWcbj(wcbj);
             //插入进度表
             this.baseMapper.insert(insertTaskScheduleT);
         }else{//修改
-            String wcbj = getWcbj(insertTaskScheduleT);//完成标记
             insertTaskScheduleT.setWcbj(wcbj);
             //修改进度表
             this.baseMapper.updateById(insertTaskScheduleT);
         }
+        //任务进度完成之后，同时修改<该人和该任务>的任务计划的完成标记位置为1
+        if("1".equals(wcbj) && ToolUtil.isNotEmpty(insertTaskScheduleT.getTaskId())
+                    && ToolUtil.isNotEmpty(insertTaskScheduleT.getUserCode())){//任务进度已经完成
+            TaskPlanT build = TaskPlanT.builder()
+                    .wcbj("1")
+                    .build();
+            taskPlanTMapper.update(build,
+                    new EntityWrapper<TaskPlanT>()
+                    .eq("USER_CODE",insertTaskScheduleT.getUserCode())
+                    .eq("TASK_ID",insertTaskScheduleT.getTaskId())
+            );
+        }
+    }
+
+    @Override
+    public Page<TaskScheduleTResVO> unDoneAllSchedule(String userCode) {
+        Page<TaskScheduleTResVO> page = PageFactory.defaultPage();
+        List<TaskScheduleTResVO> list = this.baseMapper.unDoneAllSchedule(userCode,page);
+        page.setRecords(list);
+        return page;
     }
 
     private String getWcbj(TaskScheduleT insertTaskScheduleT){

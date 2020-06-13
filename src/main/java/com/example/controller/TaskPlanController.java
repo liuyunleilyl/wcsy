@@ -40,7 +40,7 @@ public class TaskPlanController {
     private TaskPlanService taskPlanList;
 
     @GetMapping("/taskPlanList")
-    @ApiOperation(value = "作业员-我的工作-查看自己的任务计划", notes = "作业员-我的工作-查看自己的任务计划")
+    @ApiOperation(value = "作业员-我的工作-查看自己的未完成的任务计划", notes = "作业员-我的工作-查看自己的未完成的任务计划")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userCode", value = "用户账号", required = true, dataType = "String",
                     example = "liuyl", paramType = "query")
