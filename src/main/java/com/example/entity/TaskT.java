@@ -31,6 +31,20 @@ public class TaskT {
     private String taskName;
 
     /**
+     * 任务完成标记（0：未完成；1：已经完成）
+     */
+    @TableField("WCBJ")
+    private String wcbj;
+
+    public String getWcbj() {
+        return wcbj;
+    }
+
+    public void setWcbj(String wcbj) {
+        this.wcbj = wcbj;
+    }
+
+    /**
      * 任务ID
      * @return TASK_ID 任务ID
      */

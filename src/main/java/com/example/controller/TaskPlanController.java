@@ -50,6 +50,4 @@ public class TaskPlanController {
         Page<TaskPlanTListResVO> pageList =  taskPlanList.taskPlanList(userCode);
         return ResultData.success(pageList);
     }
-
-
 }

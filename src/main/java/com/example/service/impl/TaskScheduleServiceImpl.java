@@ -104,6 +104,21 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
                     .eq("TASK_ID",insertTaskScheduleT.getTaskId())
             );
         }
+        /**
+         * 任务进度和任务计划有出入，出来一项任务，必须把该任务的任务计划全部分配完才可以填写任务进度，
+         * 完成一项任务进度，同时更新任务计划，等该任务的所有任务计划完毕后，才可以修改任务表的wcbj
+         */
+        Integer count = this.taskPlanTMapper.selectCount(
+                new EntityWrapper<TaskPlanT>()
+                        .eq("TASK_ID", insertTaskScheduleT.getTaskId())
+                        .eq("WCBJ", "0")
+        );
+        if(count == 0){//该任务的所有人的任务计划都完了，更新任务表wcbj为1，已完成
+            TaskT taskT = new TaskT();
+            taskT.setWcbj("1");
+            taskT.setTaskId(insertTaskScheduleT.getTaskId());
+            taskTMapper.updateById(taskT);
+        }
     }
 
     @Override
