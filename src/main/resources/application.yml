@@ -7,6 +7,9 @@ spring:
         cache: false
         # 启用不严格检查
         mode: LEGACYHTML5
+    #引入外部配置文件
+    profiles:
+        include: app,datasource
     #datasource
     datasource:
         url: jdbc:mysql://localhost:3306/wcsy?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC

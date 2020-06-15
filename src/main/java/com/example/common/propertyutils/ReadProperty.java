@@ -15,14 +15,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @Description:读取配置文件内容(有问题)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@PropertySource("classpath:application-app.yml")
+@PropertySource("classpath:application-datasource.yml")
 @SpringBootTest(classes = Application.class)
 public class ReadProperty {
-    @Value("${mineServer.port}")
-    private String serverPort;
+    @Value("${datasource.url}")
+    private String datasourceUrl;
 
     @Test
     public void testOne(){
-        System.out.println("serverPort======"+serverPort);
+        System.out.println("serverPort======"+datasourceUrl);
     }
 }

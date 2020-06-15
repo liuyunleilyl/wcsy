@@ -1,0 +1,10 @@
+#测试配置，没有真正引用
+datasource:
+    url: jdbc:dm://10.15.249.121:5237/ZWFW060_XGJ_DEV?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+
+
+
+
+
+
+
