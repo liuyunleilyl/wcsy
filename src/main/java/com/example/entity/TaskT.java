@@ -4,13 +4,19 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author liuly 
  */
 @TableName("task_t")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TaskT {
     /**
      * 任务ID

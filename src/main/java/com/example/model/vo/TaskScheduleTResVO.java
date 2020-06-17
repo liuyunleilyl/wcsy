@@ -91,7 +91,7 @@ public class TaskScheduleTResVO {
     /**
      * 任务完成标记（0：未完成；1：已经完成）
      */
-    @ApiModelProperty("任务进度表id")
+    @ApiModelProperty("任务完成标记（0：未完成；1：已经完成）")
     private String wcbj;
 
     @ApiModelProperty("作业员真实姓名")

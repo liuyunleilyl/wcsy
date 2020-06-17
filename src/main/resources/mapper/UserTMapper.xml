@@ -21,5 +21,8 @@
     -->
     USER_ID, USER_CODE, USER_NAME, PASSWORD, USER_ROLE
   </sql>
+    <select id="userCodeAndName" resultType="com.example.model.vo.ValueAndLabelTemplate">
+      select USER_CODE value,USER_NAME label from user_t
+    </select>
 
 </mapper>

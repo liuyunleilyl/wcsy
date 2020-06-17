@@ -1,9 +1,5 @@
 package com.example.model.vo;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -11,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 /**
@@ -20,36 +17,37 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel("任务计划VO")
-public class TaskPlanTVO {
+@ApiModel("管理员-新增任务计划VO")
+public class NewTaskPlanVO {
     /**
      * 任务计划表id
      */
-    @ApiModelProperty(value = "任务计划表id",example = "08c0bc0de8bd4032a3ca8efa2d177e9f")
-    private String taskPlanId;
+    /*@ApiModelProperty("任务计划表id")
+    private String taskPlanId;*/
 
     /**
      * 任务ID
      */
-    @ApiModelProperty(value = "任务ID",example = "1")
-    private String taskId;
+    /*@ApiModelProperty("任务ID")
+    private String taskId;*/
 
     /**
      * 作业员用户账号
      */
+    @NotEmpty(message = "作业员用户账号必填")
     @ApiModelProperty(value = "作业员用户账号",example = "liuyl")
     private String userCode;
 
     /**
      * 检查员中文名
      */
-    @ApiModelProperty(value = "检查员中文名",example = "李云龙")
+    @ApiModelProperty(value = "检查员中文名",example = "码云")
     private String jcyName;
 
     /**
      * 地理分区
      */
-    @ApiModelProperty(value = "地理分区",example = "济宁任城区")
+    @ApiModelProperty(value = "地理分区",example = "山东济宁")
     private String dlfq;
 
     /**
@@ -97,6 +95,15 @@ public class TaskPlanTVO {
     /**
      * 任务完成标记（0：未完成；1：已经完成）
      */
-    @ApiModelProperty(value = "任务完成标记（0：未完成；1：已经完成）",example = "0")
-    private String wcbj;
+    /*@ApiModelProperty("任务完成标记（0：未完成；1：已经完成）")
+    private String wcbj;*/
+
+    /*@ApiModelProperty("作业员真实姓名")
+    private String userName;*/
+    @NotEmpty(message = "任务年份必填！")
+    @ApiModelProperty(value = "工作内容年份",example = "2020")
+    private String taskYear;
+    @NotEmpty(message = "任务内容必填")
+    @ApiModelProperty(value = "工作内容名称",example = "马鞍山市地理国情监测")
+    private String taskName;
 }

@@ -2,6 +2,9 @@ package com.example.service;
 
 import com.example.model.vo.UserNamePasswordVO;
 import com.example.model.vo.UserTVO;
+import com.example.model.vo.ValueAndLabelTemplate;
+
+import java.util.List;
 
 /**
  * @Author: liuyl
@@ -19,4 +22,13 @@ public interface UserTService {
      * @Description: 用户登陆
      */
     UserTVO login(UserNamePasswordVO userNamePasswordVO);
+
+    /** 
+     * @Author: liuyl
+     * @Date: 2020/6/17 12:00
+     * @Param: []
+     * @Return: java.util.List<com.example.model.vo.ValueAndLabelTemplate>
+     * @Description: 用户账号和用户姓名
+     */
+    List<ValueAndLabelTemplate> userCodeAndName();
 }

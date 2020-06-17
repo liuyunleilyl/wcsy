@@ -8,6 +8,7 @@ import com.example.entity.UserT;
 import com.example.mapper.UserTMapper;
 import com.example.model.vo.UserNamePasswordVO;
 import com.example.model.vo.UserTVO;
+import com.example.model.vo.ValueAndLabelTemplate;
 import com.example.service.UserTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,11 @@ public class UserTServiceImpl extends ServiceImpl<UserTMapper, UserT> implements
         ToolUtil.copyProperties(userT,resVO);
 
         return resVO;
+    }
+
+    @Override
+    public List<ValueAndLabelTemplate> userCodeAndName() {
+        List<ValueAndLabelTemplate> list = this.baseMapper.userCodeAndName();
+        return list;
     }
 }
