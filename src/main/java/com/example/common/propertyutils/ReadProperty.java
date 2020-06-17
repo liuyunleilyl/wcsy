@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @Author: liuyl
  * @Date: 2020/6/13 20:14
  * @Version: 1.0
- * @Description:读取配置文件内容(有问题)
+ * @Description:读取配置文件内容
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @PropertySource("classpath:application-datasource.yml")
