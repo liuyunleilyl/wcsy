@@ -7,6 +7,13 @@ spring:
         cache: false
         # 启用不严格检查
         mode: LEGACYHTML5
+        # 把HTML页面都放在templates目录下面
+        prefix: classpath:/templates/
+        #.html
+        suffix: .html
+    # css和Js文件都放在static目录下面
+    mvc:
+        static-path-pattern: /static/**
     #引入外部配置文件
     profiles:
         include: app,datasource
