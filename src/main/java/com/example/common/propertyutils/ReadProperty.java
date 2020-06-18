@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @PropertySource("classpath:application-datasource.yml")
 @SpringBootTest(classes = Application.class)
 public class ReadProperty {
-    @Value("${datasource.url}")
+    @Value("${spring.datasource.url}")
     private String datasourceUrl;
 
     @Test
