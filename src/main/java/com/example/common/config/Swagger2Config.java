@@ -16,7 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @Author: liuyl
  * @Date: 2020/6/10 11:12
  * @Version: 1.0
- * @Description:
+ * @Description: 配置访问swagger-ui.html
  */
 @Configuration
 @EnableSwagger2

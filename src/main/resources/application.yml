@@ -17,12 +17,7 @@ spring:
     #引入外部配置文件
     profiles:
         include: app,datasource
-    #datasource
-    datasource:
-        url: jdbc:mysql://localhost:3306/wcsy?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
-        username: root
-        password: root
-        driver-class-name: com.mysql.jdbc.Driver
+
 
 # Elasticsearch配置
 #   elasticsearch:

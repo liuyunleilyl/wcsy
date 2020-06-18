@@ -1,6 +1,10 @@
-#测试配置，没有真正引用
-datasource:
-    url: jdbc:dm://10.15.249.121:5237/ZWFW060_XGJ_DEV?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+#datasource 配置数据源
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/wcsy?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+        username: root
+        password: root
+        driver-class-name: com.mysql.jdbc.Driver
 
 
 
