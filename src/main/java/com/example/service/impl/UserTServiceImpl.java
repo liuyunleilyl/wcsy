@@ -3,7 +3,9 @@ package com.example.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.example.common.exceptionhandler.FailException;
+import com.example.common.redis.RedisUtils;
 import com.example.common.tool.ToolUtil;
+import com.example.common.tool.UuidUtil;
 import com.example.entity.UserT;
 import com.example.mapper.UserTMapper;
 import com.example.model.vo.UserNamePasswordVO;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: liuyl
@@ -26,6 +29,9 @@ import java.util.List;
 public class UserTServiceImpl extends ServiceImpl<UserTMapper, UserT> implements UserTService {
     @Autowired
     private UserTMapper userTMapper;
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     @Override
     public UserTVO login(UserNamePasswordVO userNamePasswordVO) {
@@ -45,7 +51,10 @@ public class UserTServiceImpl extends ServiceImpl<UserTMapper, UserT> implements
             throw new FailException("0001","密码不正确，请重新输入!");
         }
         ToolUtil.copyProperties(userT,resVO);
-
+        //把token放入redis实现登陆验证
+        String token = userCode+"-"+ UuidUtil.getUuid();
+        redisUtils.set(token,token, Long.valueOf(30) , TimeUnit.MINUTES);
+        resVO.setToken(token);
         return resVO;
     }
 

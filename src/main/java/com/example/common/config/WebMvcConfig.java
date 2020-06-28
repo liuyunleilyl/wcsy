@@ -63,6 +63,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/webjars/**")
                 .excludePathPatterns("/**/favicon.ico").excludePathPatterns("/")
                 .excludePathPatterns("/swagger-resources/configuration/ui")
-                .excludePathPatterns("/swagger-resources/configuration/security");
+                .excludePathPatterns("/swagger-resources/configuration/security")
+                .excludePathPatterns("/user/login")
+        ;
     }
 }
