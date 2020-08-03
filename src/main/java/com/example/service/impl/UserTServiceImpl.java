@@ -51,10 +51,10 @@ public class UserTServiceImpl extends ServiceImpl<UserTMapper, UserT> implements
             throw new FailException("0001","密码不正确，请重新输入!");
         }
         ToolUtil.copyProperties(userT,resVO);
-        //把token放入redis实现登陆验证
+        /*//把token放入redis实现登陆验证
         String token = userCode+"-"+ UuidUtil.getUuid();
         redisUtils.set(token,token, Long.valueOf(30) , TimeUnit.MINUTES);
-        resVO.setToken(token);
+        resVO.setToken(token);*/
         return resVO;
     }
 

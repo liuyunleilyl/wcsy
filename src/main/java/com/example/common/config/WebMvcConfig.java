@@ -53,18 +53,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
          *addPathPatterns 用于添加拦截规则
          *excludePathPatterns 用于排除拦截
          */
-        registry.addInterceptor(mineInterceptor)
-                .addPathPatterns("/**").excludePathPatterns("/swagger-ui.html")
-                .excludePathPatterns("/configuration/ui")
-                .excludePathPatterns("/swagger-resources")
-                .excludePathPatterns("/configuration/security")
-                .excludePathPatterns("/v2/api-docs")
-                .excludePathPatterns("/error")
-                .excludePathPatterns("/webjars/**")
-                .excludePathPatterns("/**/favicon.ico").excludePathPatterns("/")
-                .excludePathPatterns("/swagger-resources/configuration/ui")
-                .excludePathPatterns("/swagger-resources/configuration/security")
-                .excludePathPatterns("/user/login")
-        ;
+//        registry.addInterceptor(mineInterceptor)
+//                .addPathPatterns("/**").excludePathPatterns("/swagger-ui.html")
+//                .excludePathPatterns("/configuration/ui")
+//                .excludePathPatterns("/swagger-resources")
+//                .excludePathPatterns("/configuration/security")
+//                .excludePathPatterns("/v2/api-docs")
+//                .excludePathPatterns("/error")
+//                .excludePathPatterns("/webjars/**")
+//                .excludePathPatterns("/**/favicon.ico").excludePathPatterns("/")
+//                .excludePathPatterns("/swagger-resources/configuration/ui")
+//                .excludePathPatterns("/swagger-resources/configuration/security")
+//                .excludePathPatterns("/user/login")
+//        ;
     }
 }
