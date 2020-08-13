@@ -41,13 +41,13 @@ public class UserController {
 
     @PostMapping("/login1")
     @ApiOperation(value = "用户登陆", notes = "用户登陆")
-    public String initList(){
+    public String initList1(){
         return "OK";
     }
 
     @PostMapping("/login2")
     @ApiOperation(value = "用户登陆", notes = "用户登陆")
-    public String initList(String a,String b){
+    public String initList2(String a,String b){
         return a+","+b;
     }
 
