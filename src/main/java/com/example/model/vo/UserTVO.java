@@ -44,7 +44,7 @@ public class UserTVO {
     /**
      * 用户角色
      */
-    @ApiModelProperty("用户密码")
+    @ApiModelProperty("用户角色")
     private String userRole;
 
     @ApiModelProperty("访问接口必须带着token实现登陆验证，token放到headers中")

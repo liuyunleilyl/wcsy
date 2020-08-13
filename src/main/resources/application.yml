@@ -1,31 +1,19 @@
 server:
     port: 8080
+    #servlet:
+       # context-path: /demo
 
 spring:
-    thymeleaf:
-        # 开发时关闭缓存不然没法看到实时页面
-        cache: false
-        # 启用不严格检查
-        mode: LEGACYHTML5
-        # 把HTML页面都放在templates目录下面
-        prefix: classpath:/templates/
-        #.html
-        suffix: .html
-    # css和Js文件都放在static目录下面
     mvc:
-        static-path-pattern: /static/**
-    #引入外部配置文件
+        static-path-pattern: /**
+    resources:
+        static-locations: classpath:/templates  #访问静态页面
+
+        #引入外部配置文件
     profiles:
         include: app,datasource
-    #集成redis：
-    redis:
-        host: localhost # Redis服务器地址
-        database: 0 # Redis数据库索引（默认为0）
-        port: 6379 # Redis服务器连接端口
-        password: # Redis服务器连接密码（默认为空）
-        timeout: 30000ms # 连接超时时间（毫秒）
 
-# Elasticsearch配置
+
 #   elasticsearch:
 #   hostname: 10.15.249.121
 #   port: 9200
@@ -62,6 +50,9 @@ pagehelper:
 
 
 #http://localhost:8080/swagger-ui.html 访问swagger界面
+
+
+
 
 
 
