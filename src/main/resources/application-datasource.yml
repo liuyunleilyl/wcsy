@@ -4,7 +4,7 @@ spring:
         url: jdbc:mysql://localhost:3305/wcsy?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
         username: root
         password: 321
-        driver-class-name: com.mysql.jdbc.Driver
+        driver-class-name: com.mysql.cj.jdbc.Driver
 
 
 
