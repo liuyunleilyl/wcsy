@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>定制任务</title>
+    <title>新增计划</title>
     <link href="css/tail.css" rel="stylesheet" type="text/css" />
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
@@ -25,11 +25,20 @@
                 <tbody>
                 <tr>
                     <td style="border-top: none" >任务名称：</td>
-                    <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"  name ="name" minlength="2"  required id="rwmc"></td>
+                    <td  colspan = "6"  style="text-align: left;border-top: none">
+                        <select name="modules" lay-verify="required" lay-search="" id="rwmc">
+                            <option value="">请选择</option>
+                            <option value="1">layer</option>
+                            <option value="2">form</option>
+                            <option value="3">layim</option>
+                            <option value="4">element</option>
+                            <option value="5">laytpl</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td>任务时间：</td>
-                    <td  style="text-align: left"><input type="text"  id="rwsj"></td>
+                    <td  style="text-align: left"><input type="text"  id="rwsj" disabled="disabled" ></td>
                     <td>地理分区：</td>
                     <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="dlfq"></td>
                 </tr>
@@ -66,8 +75,8 @@
         </div>
     </div>
     <div class="bot_btn">
-        <input class="btn" type="submit" value="保存" onclick="RecodeSave()"/>
-        <button class="btn btn1"><a href="notice.html" target="right">返回</a></button>
+        <input class="btn" type="submit" value="保存" onclick="RSave()"/>
+        <button class="btn btn1"><a href="myrecode.html" target="right">返回</a></button>
     </div>
 </div>
 </form>
@@ -118,35 +127,9 @@
             festival: true, //显示节日
         });
     }();
-    function RecodeSave() {
-        var dataa={
-            TASKID: parent.getCurrentID(),
-            PROJECTID: PROJECTID,
-            STATE: $("#tit").val(),
-            STARTTIME: $("#demo").val(),
+    function RSave() {
+        alert("接口");
 
-            PERSONID: PERSONID,
-            NOTE: $("#NOTE").val(),
-            TASKTYPE: $("#part").val(),
-            TASKPHASE: $("#person").val(),
-
-        };
-        $.ajax({
-            type: "POST",
-            url: "/user/login",
-            contentType:"application/json;charset=UTF-8",
-            data:JSON.stringify(dataa),
-            dataType: "json",
-            success: function (result) {
-                if (result.data) {
-                    alert("保存成功！！！");
-                    parent.getRecodeTableData();
-                    TaskCancel();
-                } else {
-                    alert("保存失败！！！")
-                }
-            }
-        })
     }
     function TaskCancel() {
         var index = parent.layer.getFrameIndex(window.name)

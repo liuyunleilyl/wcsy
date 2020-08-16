@@ -17,7 +17,6 @@
 </head>
 
 <body style="border-radius: 8px" onload="change()">
-<!--<div class="title"><h2>通知详情</h2></div>-->
 <form id="form_demo" >
 <div class="top">
     <div>
@@ -26,30 +25,23 @@
                 <tbody>
 
                 <tr>
-                    <td style="border-top: none" >用户名：<i class="i_start"></i></td>
-                    <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"  name ="name" minlength="2"  required id="recodeTit"></td>
+                    <td style="border-top: none" >账号：<i class="i_start"></i></td>
+                    <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"  name ="name" minlength="2"  required id="username"></td>
                 </tr>
                 <tr>
-                    <td>角色：</td>
+                    <td style="border-top: none" >密码：<i class="i_start"></i></td>
+                    <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"  name ="name" minlength="2"  required id="password"></td>
+                </tr>
+                <tr>
+                    <td style="border-top: none" >姓名：<i class="i_start"></i></td>
+                    <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"  name ="name" minlength="2"  required id="name"></td>
+                </tr>
+                <tr>
+                    <td>角色：<i class="i_start"></td>
                     <td  style="text-align: left"><select>
-                        <option>xxxx</option>
+                        <option>管理员</option>
+                        <option>作业员</option>
                     </select></td>
-                    <td>密码：</td>
-                    <td colspan = "3" style="text-align: left"><input type="password" class="long_text" id="person"></td>
-                </tr>
-                <tr>
-                    <td>所属部门：</td>
-                    <td  style="text-align: left"><select>
-                        <option>xxxx</option>
-                    </select></td>
-                    <td>所各状态：</td>
-                    <td colspan = "3" style="text-align: left"><select>
-                        <option>xxxx</option>
-                    </select></td>
-                </tr>
-                <tr>
-                    <td style="line-height: 240px">备注：</td>
-                    <td colspan = "8" style="text-align: left"><textarea  id="note" style="width: 100%;height: 240px"></textarea></td>
                 </tr>
                 </tbody>
             </table>
@@ -57,7 +49,7 @@
     </div>
     <div class="bot_btn">
         <input class="btn" type="submit" value="保存" onclick="RecodeSave()"/>
-        <button class="btn btn1"><a href="notice.html" target="right">返回</a></button>
+        <button class="btn btn1"><a href="person.html" target="right">返回</a></button>
     </div>
 </div>
 </form>

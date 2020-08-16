@@ -25,7 +25,7 @@ function Recodeload() {
                     valign: 'middle'
                 },
                 {
-                    title: "编号",
+                    title: "时间",
                     field: 'class',
                     align: 'center',
                     valign: 'middle'
@@ -37,35 +37,63 @@ function Recodeload() {
                     valign: 'middle'
                 },
                 {
-                    title: '发布人',
+                    title: '作业员',
                     field: 'type',
                     align: 'center'
                 },
                 {
-                    title: '发布时间',
+                    title: '检查员',
                     field: 'name',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: '执行时间',
+                    title: '地理分区',
                     field: 'name',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: '发布内容',
+                    title: '采集',
                     field: 'work',
                     align: 'center'
                 },
                 {
-                    title: '操作',
+                    title: '核查',
+                    field: 'work',
+                    align: 'center'
+                },
+                {
+                    title: '编辑',
+                    field: 'work',
+                    align: 'center'
+                },
+                {
+                    title: '质检',
+                    field: 'work',
+                    align: 'center'
+                },
+                {
+                    title: '二查',
+                    field: 'work',
+                    align: 'center'
+                },
+                {
+                    title: '合库',
+                    field: 'work',
+                    align: 'center'
+                },
+                {
+                    title: '上交',
+                    field: 'work',
+                    align: 'center'
+                },
+                {
+                    title: '进度',
                     field: 'id',
                     align: 'center',
                     formatter: function (value, row) {
                         var e = '<button button="#" mce_href="#" onclick="editRecode(\'' + row.WORKRECORDID + '\')">查看</button> ';
-
-
                         return e;
                     }
                 }
@@ -75,17 +103,8 @@ function Recodeload() {
    getRecodeTableData();
 }
 function getRecodeTableData() {
-    if (flag) {
-        recodeTitle = "";
-        Publisher = "";
-        recodeTime = "";
-        flag = false;
-    } else {
-        recodeTitle = $("#name").val();
-        Publisher = $("#person").val();
-        recodeTime  = $("#demo").val();
-    }
-    $.ajax({
+    alert("数据查询类别接口");
+    /*$.ajax({
         type: "GET",
         url: "../WorkRecord/SearchWork?dtStart=" +recodeTitle  + "&dtEnd=" + Publisher + "&dtEnd=" +  recodeTime,
         dataType: "json",
@@ -95,42 +114,28 @@ function getRecodeTableData() {
                 $('#table').bootstrapTable("load", RccodeTableData);
             }
         }
-    })
+    })*/
 }
-// function addRecode() {
-//     openlayer()
-//     currentID = "";
-// }
+//根据条件查询
+function getDataByname(){
+    alert("接口整合中");
+}
+//根据计划ID查询进度
 function editRecode(id) {
-    openlayer()
+    openlayer2()
     currentID = id;
 }
-function outRecode(id) {
-    alert(id)
-    var RecodeId = id;
-    $.ajax({
-        url: '../WorkRecord/DeleteWork?workId=' + RecodeId,
-        type: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            if (data.data) {
-                alert("下载成功！")
-                // getRecodeTableData();
-            } else {
-                alert("下载失败")
-            }
-        },
-        error: function (err) {
-        }
-    });
+function addRecode() {
+    openlayer1()
+    currentID = "";
 }
 function getCurrentID() {
     return currentID;
 }
-function openlayer() {
+function openlayer1() {
     layer.open({
         type: 2,
-        title: '任务信息',
+        title: '新增计划',
         shadeClose: true,
         shade: 0.5,
         skin: 'layui-layer-rim',
@@ -138,11 +143,28 @@ function openlayer() {
         area: ['98%', '98%'],
         shadeClose: true,
         closeBtn: 2,
-        content:" recode_tail.html"
+        content:"myrecode_tail.html"
 
     });
-    
+};
+
+function openlayer2() {
+    layer.open({
+        type: 2,
+        title: '进度详情',
+        shadeClose: true,
+        shade: 0.5,
+        skin: 'layui-layer-rim',
+        closeBtn: 2,
+        area: ['98%', '98%'],
+        shadeClose: true,
+        closeBtn: 2,
+        content:"myrecode01_tail.html"
+
+    });
 }
+
+
 
 
 
