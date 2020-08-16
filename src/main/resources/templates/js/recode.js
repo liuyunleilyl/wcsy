@@ -20,45 +20,36 @@ function Recodeload() {
             columns: [
                 {
                     checkbox:"true",
-                    field: 'ID',
+                    field: 'taskId',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: "编号",
-                    field: 'class',
+                    title: "时间",
+                    field: 'taskYear',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
                     title: '任务名称',
-                    field: 'sex',
+                    field: 'taskName',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: '发布人',
-                    field: 'type',
-                    align: 'center'
-                },
-                {
-                    title: '发布时间',
-                    field: 'name',
+                    title: '完成情况',
+                    field: 'wcbj',
                     align: 'center',
-                    valign: 'middle'
-                },
-                {
-                    title: '执行时间',
-                    field: 'name',
-                    align: 'center',
-                    valign: 'middle'
-                },
-                {
-                    title: '发布内容',
-                    field: 'work',
-                    align: 'center'
-                },
-                {
+                    valign: 'middle',
+                    formatter:function(value,row,index){
+                        if(value==0){
+                            return "未完成";
+                        }else{
+                            return "完成";
+                        }
+                    }
+                }
+                /*{
                     title: '操作',
                     field: 'id',
                     align: 'center',
@@ -68,35 +59,53 @@ function Recodeload() {
 
                         return e+c;
                     }
-                }
+                }*/
             ]
         });
     });
    getRecodeTableData();
 }
 function getRecodeTableData() {
-    if (flag) {
-        recodeTitle = "";
-        Publisher = "";
-        recodeTime = "";
-        flag = false;
-    } else {
-        recodeTitle = $("#name").val();
-        Publisher = $("#person").val();
-        recodeTime  = $("#demo").val();
-    }
     $.ajax({
+        async: false,
         type: "GET",
-        url: "../WorkRecord/SearchWork?dtStart=" +recodeTitle  + "&dtEnd=" + Publisher + "&dtEnd=" +  recodeTime,
-        dataType: "json",
-        success: function (result) {
-            if (result.data) {
-                var RccodeTableData = result.data;
+        url: "/task/taskList",
+        dataType:"json",
+        contentType:"application/json;charset=UTF-8",
+        success: function(message){
+            if(message.code==200){
+                var RccodeTableData = message.data.records;
                 $('#table').bootstrapTable("load", RccodeTableData);
             }
+            else{
+                alert("请求失误");
+            }
         }
-    })
+
+    });
 }
+//条件查询
+function getRecodeTableDataByname() {
+   alert("待接口");
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/task/taskList",
+        dataType:"json",
+        contentType:"application/json;charset=UTF-8",
+        success: function(message){
+            if(message.code==200){
+                var RccodeTableData = message.data.records;
+                $('#table').bootstrapTable("load", RccodeTableData);
+            }
+            else{
+                alert("请求失误");
+            }
+        }
+
+    });
+}
+
 function addRecode() {
     openlayer()
     currentID = "";
@@ -106,23 +115,7 @@ function editRecode(id) {
     currentID = id;
 }
 function delRecode(id) {
-    alert(id)
-    var RecodeId = id;
-    $.ajax({
-        url: '../WorkRecord/DeleteWork?workId=' + RecodeId,
-        type: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            if (data.data) {
-                alert("删除成功！")
-                getRecodeTableData();
-            } else {
-                alert("删除失败")
-            }
-        },
-        error: function (err) {
-        }
-    });
+    alert("待整合接口");
 }
 function getCurrentID() {
     return currentID;
@@ -130,7 +123,7 @@ function getCurrentID() {
 function openlayer() {
     layer.open({
         type: 2,
-        title: '任务信息',
+        title: '定制任务',
         shadeClose: true,
         shade: 0.5,
         skin: 'layui-layer-rim',
@@ -138,10 +131,9 @@ function openlayer() {
         area: ['98%', '98%'],
         shadeClose: true,
         closeBtn: 2,
-        content:" recode_tail01.html"
+        content:"recode_tail.html"
 
     });
-    
 }
 
 

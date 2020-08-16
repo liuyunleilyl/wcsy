@@ -57,14 +57,19 @@
 				password:v2
 			};
 			$.ajax({
+				async: false,
 				type: "POST",
 				url: "/user/login",
 				data:JSON.stringify(dataa),
 				dataType:"json",
 				contentType:"application/json;charset=UTF-8",
 				success: function(message){
-					if(message.code=="200"){
-						window.location.href='index.html';
+					if(message.code==200){
+						if(message.data.userRole=="管理员"){
+							window.location.href='aindex.html';
+						}else if(message.data.userRole=="作业员"){
+							window.location.href='index.html';
+						}else{}
 					}
 					else{
 						alert("密码错误");

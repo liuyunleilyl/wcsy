@@ -39,17 +39,6 @@ public class UserController {
         return ResultData.success(userTVO);
     }
 
-    @PostMapping("/login1")
-    @ApiOperation(value = "用户登陆", notes = "用户登陆")
-    public String initList1(){
-        return "OK";
-    }
-
-    @PostMapping("/login2")
-    @ApiOperation(value = "用户登陆", notes = "用户登陆")
-    public String initList2(String a,String b){
-        return a+","+b;
-    }
 
     @GetMapping("/userCodeAndName")
     @ApiOperation(value = "查询用户账号和用户姓名下拉框", notes = "查询用户账号和用户姓名下拉框")
