@@ -20,9 +20,15 @@ function Recodeload() {
             columns: [
                 {
                     checkbox:"true",
-                    field: 'taskId',
                     align: 'center',
                     valign: 'middle'
+                },
+                {
+                    field : 'taskId',
+                    title : 'ID',
+                    align : "center",
+                    valign : "middle",
+                    visible: false
                 },
                 {
                     title: "时间",
@@ -49,17 +55,6 @@ function Recodeload() {
                         }
                     }
                 }
-                /*{
-                    title: '操作',
-                    field: 'id',
-                    align: 'center',
-                    formatter: function (value, row) {
-                        var e = '<button button="#" mce_href="#" onclick="editRecode(\'' + row.WORKRECORDID + '\')">编辑</button> ';
-                        var c = '<button button="#" mce_href="#" onclick="delRecode(\'' + row.WORKRECORDID + '\')">删除</button> ';
-
-                        return e+c;
-                    }
-                }*/
             ]
         });
     });
@@ -86,11 +81,11 @@ function getRecodeTableData() {
 }
 //条件查询
 function getRecodeTableDataByname() {
-   alert("待接口");
+   var name=$("#name").val();
     $.ajax({
         async: false,
         type: "GET",
-        url: "/task/taskList",
+        url: "/task/taskList?taskName="+name,
         dataType:"json",
         contentType:"application/json;charset=UTF-8",
         success: function(message){
@@ -102,7 +97,6 @@ function getRecodeTableDataByname() {
                 alert("请求失误");
             }
         }
-
     });
 }
 
@@ -110,12 +104,28 @@ function addRecode() {
     openlayer()
     currentID = "";
 }
-function editRecode(id) {
-    openlayer()
-    currentID = id;
-}
-function delRecode(id) {
-    alert("待整合接口");
+function delRecode() {
+    var a= $('#table').bootstrapTable('getSelections');
+    if(a.length==1){
+        var id=a[0].taskId;
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "/task/invalidTask?taskIds="+id,
+            contentType:"application/json;charset=UTF-8",
+            success: function(message){
+                if(message.code==200){
+                    alert("删除成功");
+                    getRecodeTableData();
+                }
+                else{
+                    alert("请求失误");
+                }
+            }
+        });
+    }else{
+        alert("请选中一行")
+    }
 }
 function getCurrentID() {
     return currentID;

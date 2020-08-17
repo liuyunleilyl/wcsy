@@ -26,73 +26,80 @@ function Recodeload() {
                     visible: false
                 },
                 {
-                    title: "时间",
-                    field: 'class',
+                    title: "计划ID",
+                    field: 'taskPlanId',
                     align: 'center',
-                    valign: 'middle'
-                },
-                {
-                    title: '任务名称',
-                    field: 'sex',
-                    align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    visible: false
                 },
                 {
                     title: '作业员',
-                    field: 'type',
-                    align: 'center'
+                    field: 'userName',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '检查员',
-                    field: 'name',
+                    field: 'jcyName',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
                     title: '地理分区',
-                    field: 'name',
+                    field: 'dlfq',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
                     title: '采集',
-                    field: 'work',
-                    align: 'center'
+                    field: 'cj',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter:function(value,row,index){
+                        return getFormatTime(value);
+                    }
                 },
                 {
                     title: '核查',
-                    field: 'work',
-                    align: 'center'
+                    field: 'hc',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '编辑',
-                    field: 'work',
-                    align: 'center'
+                    field: 'bj',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '质检',
-                    field: 'work',
-                    align: 'center'
+                    field: 'zj',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '二查',
-                    field: 'work',
-                    align: 'center'
+                    field: 'ec',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '合库',
-                    field: 'work',
-                    align: 'center'
+                    field: 'hk',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '上交',
-                    field: 'work',
-                    align: 'center'
+                    field: 'sj',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '进度详情',
-                    field: 'id',
+                    field: '',
                     align: 'center',
+                    valign: 'middle',
                     formatter: function (value, row) {
                         var e = '<button button="#" mce_href="#" onclick="editRecode(\'' + row.WORKRECORDID + '\')">查看</button> ';
                         return e;
@@ -104,18 +111,24 @@ function Recodeload() {
    getRecodeTableData();
 }
 function getRecodeTableData() {
-    alert("数据查询类别接口");
-    /*$.ajax({
+    $.ajax({
+        async: false,
         type: "GET",
-        url: "../WorkRecord/SearchWork?dtStart=" +recodeTitle  + "&dtEnd=" + Publisher + "&dtEnd=" +  recodeTime,
-        dataType: "json",
-        success: function (result) {
-            if (result.data) {
-                var RccodeTableData = result.data;
+        url: "/task/editTaskPlanList",
+        dataType:"json",
+        contentType:"application/json;charset=UTF-8",
+        success: function(message){
+            if(message.code==200){
+                var RccodeTableData = message.data.records;
                 $('#table').bootstrapTable("load", RccodeTableData);
             }
+            else{
+                alert("请求失误");
+            }
         }
-    })*/
+
+    });
+
 }
 //根据条件查询
 function getDataByname(){
@@ -166,8 +179,18 @@ function openlayer2() {
 }
 
 
-
-
+//时间格式化函数
+function getFormatTime(time) {
+    var time = new Date(time);
+    var y = time.getFullYear();
+    var m = time.getMonth() + 1;
+    var d = time.getDate();
+    var h = time.getHours();
+    var mm = time.getMinutes();
+    var s = time.getSeconds();
+    return y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
+}
+function add0(m) { return m < 10 ? '0' + m : m }
 
 
 
