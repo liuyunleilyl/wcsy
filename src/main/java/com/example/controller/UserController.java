@@ -1,11 +1,13 @@
 package com.example.controller;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.example.common.restutils.ResultData;
-import com.example.model.vo.UserNamePasswordVO;
-import com.example.model.vo.UserTVO;
-import com.example.model.vo.ValueAndLabelTemplate;
+import com.example.common.restutils.SuccessResultData;
+import com.example.model.vo.*;
 import com.example.service.UserTService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -47,4 +49,38 @@ public class UserController {
         return ResultData.success(list);
     }
 
+    @GetMapping("/userList")
+    @ApiOperation(value = "查询所有用户", notes = "查询所有用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "详情-用户id", required = false, dataType = "query",
+                    example = "2", paramType = "query"),
+            @ApiImplicitParam(name = "userName", value = "查询条件-用户名称", required = false, dataType = "query",
+                    example = "liuyl", paramType = "query"),
+            @ApiImplicitParam(name = "userRole", value = "查询条件-用户角色", required = false, dataType = "query",
+                    example = "作业员", paramType = "query")
+    })
+    public ResultData<Page<UserTVO>> userList(@RequestParam(value = "userId",required = false) String userId,
+                                              @RequestParam(value = "userName",required = false) String userName,
+                                              @RequestParam(value = "userRole",required = false) String userRole){
+        Page<UserTVO> list = userTService.userList(userId,userName,userRole);
+        return ResultData.success(list);
+    }
+
+    @PostMapping("/newUser")
+    @ApiOperation(value = "新增/修改用户", notes = "新增/修改用户")
+    public SuccessResultData newUser(@Validated @RequestBody NewUserTVO newUserTVO){
+        userTService.newUser(newUserTVO);
+        return ResultData.success();
+    }
+
+    @GetMapping("/invalidUser")
+    @ApiOperation(value = "管理员-删除用户", notes = "管理员-删除用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userIds", value = "用户id数组", required = true, dataType = "query",
+                    example = "123", paramType = "query")
+    })
+    public SuccessResultData invalidUser(@RequestParam(value = "taskIds",required = true) List<String> userIds){
+        userTService.invalidUser(userIds);
+        return SuccessResultData.success();
+    }
 }

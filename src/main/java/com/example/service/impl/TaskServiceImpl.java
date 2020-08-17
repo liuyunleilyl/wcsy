@@ -15,6 +15,7 @@ import com.example.model.vo.*;
 import com.example.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
@@ -32,13 +33,22 @@ public class TaskServiceImpl extends ServiceImpl<TaskTMapper, TaskT> implements 
     private TaskPlanTMapper taskPlanTMapper;
 
     @Override
-    public Page<TaskTVO> taskList() {
+    public Page<TaskTVO> taskList(String taskName) {
         Page<TaskTVO> page = PageFactory.defaultPage();
         List<TaskTVO> res = new ArrayList();
-        List<TaskT> list = this.baseMapper.selectPage(page,
-                new EntityWrapper<TaskT>()
-                        .eq("WCBJ", "0")
-        );
+        List<TaskT> list = new ArrayList<>();
+        if(StringUtils.isEmpty(taskName)){
+            list = this.baseMapper.selectPage(page,
+                    new EntityWrapper<TaskT>()
+                            .eq("WCBJ", "0")
+            );
+        }else {
+            list = this.baseMapper.selectPage(page,
+                    new EntityWrapper<TaskT>()
+                            .eq("WCBJ", "0")
+                            .like("TASK_NAME",taskName)
+            );
+        }
         for (TaskT taskT:list) {
             TaskTVO taskTVO = new TaskTVO();
             ToolUtil.copyProperties(taskT,taskTVO);
@@ -99,9 +109,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskTMapper, TaskT> implements 
     }
 
     @Override
-    public Page<TaskPlanTListResVO> editTaskPlanList(String taskId) {
+    public Page<TaskPlanTListResVO> editTaskPlanList(String taskPlanId,String taskName) {
         Page<TaskPlanTListResVO> page = PageFactory.defaultPage();
-        List<TaskPlanTListResVO> list = this.baseMapper.editTaskPlanList(page,taskId);
+        List<TaskPlanTListResVO> list = this.baseMapper.editTaskPlanList(page,taskPlanId,taskName);
         page.setRecords(list);
         return page;
     }
@@ -117,5 +127,15 @@ public class TaskServiceImpl extends ServiceImpl<TaskTMapper, TaskT> implements 
             taskPlanT.setWcbj("0");//新增/修改任务计划，永远是未完成；只有该任务进度完成后才会自动更新为已完成。
             taskPlanTMapper.updateById(taskPlanT);
         }
+    }
+
+    @Override
+    public void invalidTask(List<String> taskIds) {
+        this.baseMapper.deleteBatchIds(taskIds);
+    }
+
+    @Override
+    public void invalidTaskPlan(List<String> taskPlanIds) {
+        taskPlanTMapper.deleteBatchIds(taskPlanIds);
     }
 }

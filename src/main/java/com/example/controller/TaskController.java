@@ -6,6 +6,8 @@ import com.example.common.restutils.SuccessResultData;
 import com.example.model.vo.*;
 import com.example.service.TaskService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -35,8 +37,12 @@ public class TaskController {
 
     @GetMapping("/taskList")
     @ApiOperation(value = "管理员-查看未完成的任务", notes = "管理员-查看未完成的任务")
-    public ResultData<Page<TaskTVO>> taskList(){
-        Page<TaskTVO> pageList =  taskService.taskList();
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "taskName", value = "查询条件-任务名称", required = false, dataType = "query",
+                    example = "马鞍山市地理国情监测", paramType = "query")
+    })
+    public ResultData<Page<TaskTVO>> taskList(@RequestParam(value = "taskName",required = false) String taskName){
+        Page<TaskTVO> pageList =  taskService.taskList(taskName);
         return ResultData.success(pageList);
     }
 
@@ -47,11 +53,54 @@ public class TaskController {
         return ResultData.success();
     }
 
+    @GetMapping("/invalidTask")
+    @ApiOperation(value = "管理员-删除任务", notes = "管理员-删除任务")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "taskIds", value = "任务id数组", required = true, dataType = "query",
+                    example = "123", paramType = "query")
+    })
+    public SuccessResultData invalidTask(@RequestParam(value = "taskIds",required = true) List<String> taskIds){
+        taskService.invalidTask(taskIds);
+        return SuccessResultData.success();
+    }
+
+    @GetMapping("/editTaskPlanList")
+    @ApiOperation(value = "管理员-任务计划列表", notes = "管理员-任务计划列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "taskPlanId", value = "详情使用-任务表id", required = false, dataType = "String",
+                    example = "1", paramType = "query"),
+            @ApiImplicitParam(name = "taskName", value = "查询条件-任务名称", required = false, dataType = "String",
+                    example = "马鞍山市地理国情监测", paramType = "query")
+    })
+    public ResultData<Page<TaskPlanTListResVO>> editTaskPlanList(@RequestParam(value = "taskPlanId",required = false) String taskPlanId,
+                                                                 @RequestParam(value = "taskName",required = false) String taskName){
+        Page<TaskPlanTListResVO> pageList =  taskService.editTaskPlanList(taskPlanId,taskName);
+        return ResultData.success(pageList);
+    }
+
     @PostMapping("/newTaskPlan")
     @ApiOperation(value = "管理员-新增任务计划",
             notes = "管理员-新增任务计划")
     public SuccessResultData newTaskPlan(@Validated @RequestBody NewTaskPlanVO newTaskPlanVO){
         taskService.newTaskPlan(newTaskPlanVO);
+        return ResultData.success();
+    }
+
+    @GetMapping("/invalidTaskPlan")
+    @ApiOperation(value = "管理员-删除任务计划", notes = "管理员-删除任务计划")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "taskPlanIds", value = "任务计划id数组", required = true, dataType = "query",
+                    example = "123", paramType = "query")
+    })
+    public SuccessResultData invalidTaskPlan(@RequestParam(value = "taskPlanIds",required = true) List<String> taskPlanIds){
+        taskService.invalidTaskPlan(taskPlanIds);
+        return SuccessResultData.success();
+    }
+
+    @PostMapping("/editTaskPlanListOperation")
+    @ApiOperation(value = "管理员-计划列表选中一条修改任务计划", notes = "管理员-计划列表选中一条修改任务计划")
+    public SuccessResultData editTaskPlanListOperation(@RequestBody List<TaskPlanTVO> taskPlanTVOList){
+        taskService.editTaskPlanListOperation(taskPlanTVOList);
         return ResultData.success();
     }
 
@@ -62,17 +111,4 @@ public class TaskController {
         return ResultData.success(pageList);
     }
 
-    @GetMapping("/editTaskPlanList")
-    @ApiOperation(value = "管理员-修改任务计划列表", notes = "管理员-修改任务计划列表")
-    public ResultData<Page<TaskPlanTListResVO>> editTaskPlanList(@RequestParam(value = "taskId",required = true) String taskId){
-        Page<TaskPlanTListResVO> pageList =  taskService.editTaskPlanList(taskId);
-        return ResultData.success(pageList);
-    }
-
-    @PostMapping("/editTaskPlanListOperation")
-    @ApiOperation(value = "管理员-计划列表选中一条修改任务计划", notes = "管理员-计划列表选中一条修改任务计划")
-    public SuccessResultData editTaskPlanListOperation(@RequestBody List<TaskPlanTVO> taskPlanTVOList){
-        taskService.editTaskPlanListOperation(taskPlanTVOList);
-        return ResultData.success();
-    }
 }

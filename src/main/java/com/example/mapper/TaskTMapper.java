@@ -30,5 +30,7 @@ public interface TaskTMapper extends BaseMapper<TaskT> {
      * @Return: java.util.List<com.example.model.vo.TaskPlanTListResVO>
      * @Description: 管理员-修改任务计划列表
      */
-    List<TaskPlanTListResVO> editTaskPlanList(@Param("page") Page<TaskPlanTListResVO> page, @Param("taskId") String taskId);
+    List<TaskPlanTListResVO> editTaskPlanList(@Param("page") Page<TaskPlanTListResVO> page,
+                                              @Param("taskPlanId") String taskPlanId,
+                                              @Param("taskName") String taskName);
 }

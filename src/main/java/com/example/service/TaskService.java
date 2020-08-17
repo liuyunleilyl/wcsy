@@ -20,7 +20,7 @@ public interface TaskService {
      * @Return: com.baomidou.mybatisplus.plugins.Page<com.example.model.vo.TaskTVO>
      * @Description: 管理员-查看未完成的计划
      */
-    Page<TaskTVO> taskList();
+    Page<TaskTVO> taskList(String taskName);
 
     /** 
      * @Author: liuyl
@@ -56,7 +56,7 @@ public interface TaskService {
      * @Return: com.baomidou.mybatisplus.plugins.Page<com.example.model.vo.TaskPlanTListResVO>
      * @Description: 管理员-修改任务计划列表
      */
-    Page<TaskPlanTListResVO> editTaskPlanList(String taskId);
+    Page<TaskPlanTListResVO> editTaskPlanList(String taskPlanId,String taskName);
 
     /** 
      * @Author: liuyl
@@ -66,4 +66,22 @@ public interface TaskService {
      * @Description: 管理员-计划列表选中一条修改任务计划
      */
     void editTaskPlanListOperation(List<TaskPlanTVO> taskPlanTVOList);
+
+    /** 
+     * @Author: liuyl
+     * @Date: 2020/8/17 13:53
+     * @Param: [taskIds]：数组
+     * @Return: void
+     * @Description: 管理员-删除任务
+     */
+    void invalidTask(List<String> taskIds);
+
+    /**
+     * @Author: liuyl
+     * @Date: 2020/8/17 14:01
+     * @Param: [taskPlanIds]
+     * @Return: void
+     * @Description: 管理员-删除任务计划
+     */
+    void invalidTaskPlan(List<String> taskPlanIds);
 }
