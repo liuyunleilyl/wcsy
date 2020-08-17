@@ -67,27 +67,7 @@ function Personload() {
     getData();
 }
 function getData() {
-    if (flag) {
-        user = "";
-        role = "";
 
-        flag = false;
-    } else {
-        user = $("#user").val();
-        role = $("#role").val();
-
-    }
-    $.ajax({
-        type: "GET",
-        url: "../WorkRecord/SearchWork?dtStart=" + user + "&dtEnd=" + role ,
-        dataType: "json",
-        success: function (result) {
-            if (result.data) {
-                var TableData = result.data;
-                $('#table').bootstrapTable("load", TableData);
-            }
-        }
-    })
 }
 function add() {
     openlayer()

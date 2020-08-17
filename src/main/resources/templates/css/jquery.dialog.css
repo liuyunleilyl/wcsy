@@ -1,5 +1,5 @@
 
-.ui-dialog-panel{z-index:10000;position:absolute;left:50%;top:50%;/*padding:4px;*/border-radius:5px;}
+.ui-dialog-panel{z-index:10000;position:absolute;left:35%;top:20%;/*padding:4px;*/border-radius:5px;}
 .ui-dialog{padding-top:40px;/*border:1px solid #BBBBBB;*/border-radius:1px;background:#fff;}
 /***** 标题区域 *****/
 .ui-dialog-hd{position:absolute;left:0;top:0;right:0;height:41px;color:#FFFFFF;font-size:16px; background:url(../images/topcenter.png);}
