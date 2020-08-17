@@ -118,38 +118,19 @@ function getRecodeTableData() {
     })*/
 }
 //根据条件查询
-function getDataByname(){
+function getDataByname12(){
     alert("接口整合中");
 }
 //根据计划ID查询进度
 function editRecode(id) {
-    openlayer2()
+    openlayer22()
     currentID = id;
 }
-function addRecode() {
-    openlayer1()
-    currentID = "";
-}
+
 function getCurrentID() {
     return currentID;
 }
-function openlayer1() {
-    layer.open({
-        type: 2,
-        title: '新增计划',
-        shadeClose: true,
-        shade: 0.5,
-        skin: 'layui-layer-rim',
-        closeBtn: 2,
-        area: ['98%', '98%'],
-        shadeClose: true,
-        closeBtn: 2,
-        content:"myrecode_tail.html"
-
-    });
-};
-
-function openlayer2() {
+function openlayer22() {
     layer.open({
         type: 2,
         title: '进度详情',
@@ -160,7 +141,7 @@ function openlayer2() {
         area: ['98%', '98%'],
         shadeClose: true,
         closeBtn: 2,
-        content:"myrecode01_tail.html"
+        content:"zmyrecode01_tail.html"
 
     });
 }

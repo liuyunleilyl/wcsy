@@ -1,0 +1,142 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>计划与进度</title>
+    <link href="css/tail.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script>
+        function change() {
+            var height01 = $(window).height();
+            $(".top").css('height', height01 - 35+"px");
+        }
+    </script>
+</head>
+
+<body style="border-radius: 8px" onload="change()">
+<form id="form_demo" >
+<div class="top">
+    <div>
+        <div class="top_out">
+            <table class="table" >
+                <tbody>
+                <tr>
+                    <td style="border-top: none" >任务名称：</td>
+                    <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"  id="rwmc" disabled="disabled" ></td>
+                </tr>
+                <tr>
+                    <td>任务时间：</td>
+                    <td  style="text-align: left"><input type="text"  id="rwsj" disabled="disabled" ></td>
+                    <td>地理分区：</td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="dlfq" disabled="disabled"></td>
+                </tr>
+                <tr>
+                    <td>作业员：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="zyy" disabled="disabled"></td>
+                    <td>检查员：</td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="jcy" disabled="disabled"></td>
+                </tr>
+                <tr>
+                    <td>采集计划：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="cjjh" disabled="disabled"></td>
+                    <td>采集进度(%)：</td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="cjjd"></td>
+                </tr>
+                <tr>
+                    <td>核查计划：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="hcjh" disabled="disabled"></td>
+                    <td>核查进度(%)：</td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="hjjd"></td>
+                </tr>
+                <tr>
+                    <td>编辑计划：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="bjjh" disabled="disabled"></td>
+                    <td>编辑进度(%)：</td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="bjjd"></td>
+                </tr>
+                <tr>
+                    <td>质检计划：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="zjjh" disabled="disabled"></td>
+                    <td>质检进度(%)：</td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="zjjd"></td>
+                </tr>
+                <tr>
+                    <td>二查计划：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="ecjh" disabled="disabled"></td>
+                    <td>二查进度(%)：</td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="ecjd"></td>
+                </tr>
+                <tr>
+                    <td>合库计划：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="hkjh" disabled="disabled"></td>
+                    <td>合库进度(%)：</td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="hkjd"></td>
+                </tr>
+                <tr>
+                    <td>上交计划：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="sjjh" disabled="disabled"></td>
+                    <td>上交进度(%)：</td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="sjjd"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="bot_btn">
+        <input class="btn" type="submit" value="保存" onclick="RecodeSave1()"/>
+        <button class="btn btn1"><a href="zrecode.html" target="right">返回</a></button>
+    </div>
+</div>
+</form>
+</body>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/date/js/laydate.js"></script>
+<script>
+    function RecodeSave1() {
+        alert("保存成功");
+        /*var time=$("#rwsj").val();
+        var dataa={
+            taskYear:time,
+            taskName:$("#rwmc").val(),
+        };
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "/task/newTask",
+            contentType:"application/json;charset=UTF-8",
+            data:JSON.stringify(dataa),
+             dataType: "json",
+            success: function (result) {
+                if (result.code==200) {
+                    alert("保存成功！！！");
+                    parent.getRecodeTableData();
+                    TaskCancel();
+                } else {
+                    alert("保存失败！！！")
+                }
+            }
+        });*/
+    }
+
+    function TaskCancel() {
+        var index = parent.layer.getFrameIndex(window.name)
+        parent.layer.close(index);
+    };
+    //时间格式化函数
+    function getFormatTime(time) {
+        var time = new Date(parseInt(time));
+        var y = time.getFullYear();
+        var m = time.getMonth() + 1;
+        var d = time.getDate();
+        var h = time.getHours();
+        var mm = time.getMinutes();
+        var s = time.getSeconds();
+        return y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
+    }
+    function add0(m) { return m < 10 ? '0' + m : m }
+</script>
+
+</html>

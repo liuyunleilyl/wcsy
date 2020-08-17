@@ -1,0 +1,111 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>个人信息</title>
+    <link href="css/tail.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script>
+        function change() {
+            var height01 = $(window).height();
+            $(".top").css('height', height01 - 35+"px");
+        }
+    </script>
+</head>
+
+<body style="border-radius: 8px" onload="change()">
+<form id="form_demo" >
+    <div class="top">
+        <div>
+            <div class="top_out">
+                <table class="table" >
+                    <tbody>
+
+                    <tr>
+                        <td style="border-top: none" >账号：<i class="i_start"></i></td>
+                        <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"  name ="name" minlength="2"  required id="username" disabled="disabled"></td>
+                    </tr>
+                    <tr>
+                        <td style="border-top: none" >原始密码：<i class="i_start"></i></td>
+                        <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"  name ="name" minlength="2"  required id="password"></td>
+                    </tr>
+                    <tr>
+                        <td style="border-top: none" >新密码：<i class="i_start"></i></td>
+                        <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"  name ="name" minlength="2"  required id="password"></td>
+                    </tr>
+                    <tr>
+                        <td style="border-top: none" >姓名：<i class="i_start"></i></td>
+                        <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"  name ="name" minlength="2"  required id="name" disabled="disabled"></td>
+                    </tr>
+                    <tr>
+                        <td style="border-top: none" >角色：<i class="i_start"></i></td>
+                        <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"  name ="name" minlength="2"  required id="role" disabled="disabled"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="bot_btn">
+            <input class="btn" type="submit" value="保存" onclick="RecodeSave4()"/>
+            <button class="btn btn1"><a href="zhome.html" target="right">返回</a></button>
+        </div>
+    </div>
+</form>
+</body>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/date/js/laydate.js"></script>
+<script>
+
+    function RecodeSave4() {
+        $.ajax({
+            type: "POST",
+            url: "../TaskRecord/UpdateTask",
+            data: {
+                TASKID: parent.getCurrentID(),
+                PROJECTID: PROJECTID,
+                STATE: $("#tit").val(),
+                STARTTIME: $("#demo").val(),
+
+                PERSONID: PERSONID,
+                NOTE: $("#NOTE").val(),
+                TASKTYPE: $("#part").val(),
+                TASKPHASE: $("#person").val(),
+
+            },
+            dataType: "json",
+            success: function (result) {
+                if (result.data) {
+                    alert("保存成功！！！");
+                    parent.getRecodeTableData();
+                    TaskCancel();
+                } else {
+                    alert("保存失败！！！")
+                }
+            }
+        })
+    }
+    function TaskCancel() {
+        var index = parent.layer.getFrameIndex(window.name)
+        parent.layer.close(index);
+    }
+
+
+
+    //时间格式化函数
+    function getFormatTime(time) {
+        var time = new Date(parseInt(time));
+        var y = time.getFullYear();
+        var m = time.getMonth() + 1;
+        var d = time.getDate();
+        var h = time.getHours();
+        var mm = time.getMinutes();
+        var s = time.getSeconds();
+        return y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
+    }
+    function add0(m) { return m < 10 ? '0' + m : m }
+</script>
+
+</html>
