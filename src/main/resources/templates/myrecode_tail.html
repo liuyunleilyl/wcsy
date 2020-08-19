@@ -6,14 +6,17 @@
     <title>新增计划</title>
     <link href="css/tail.css" rel="stylesheet" type="text/css" />
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-
+    <link rel="stylesheet" href="js/date/js/need/laydate.css">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css">
     <script type="text/javascript" src="js/jquery.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
     <script>
         function change() {
             var height01 = $(window).height();
             $(".top").css('height', height01 - 35+"px");
         }
     </script>
+
 </head>
 
 <body style="border-radius: 8px" onload="change()">
@@ -26,14 +29,7 @@
                 <tr>
                     <td style="border-top: none" >任务名称：</td>
                     <td  colspan = "6"  style="text-align: left;border-top: none">
-                        <select name="modules" lay-verify="required" lay-search="" id="rwmc">
-                            <option value="">请选择</option>
-                            <option value="1">layer</option>
-                            <option value="2">form</option>
-                            <option value="3">layim</option>
-                            <option value="4">element</option>
-                            <option value="5">laytpl</option>
-                        </select>
+                        <select class="selectpicker" data-live-search="true" id="rwmc" data-width="150px"></select>
                     </td>
                 </tr>
                 <tr>
@@ -127,6 +123,7 @@
             festival: true, //显示节日
         });
     }();
+
     function RSave() {
         alert("接口");
 
@@ -151,5 +148,34 @@
     }
     function add0(m) { return m < 10 ? '0' + m : m }
 </script>
+<script>
 
+    $(document).ready(function (){
+        //绑定任务下拉框
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "/task/taskList",
+            dataType:"json",
+            contentType:"application/json;charset=UTF-8",
+            success: function(message){
+                if(message.code==200){
+                    var RccodeTableData = message.data.records;
+                    var tempIdStr = '<option  value="">选择</option>';
+                    $("#rwmc").append(tempIdStr);
+                    $.each(RccodeTableData, function (i, item) {
+                        var tempId = '<option  value="' + item.taskId + '">' + item.taskName + '</option>';
+                        $("#rwmc").append(tempId);
+                    });
+                    // 更新 。 这一步很重要
+                    $('#rwmc').selectpicker('refresh');
+                }
+                else{
+                    alert("请求失误");
+                }
+            }
+        });
+    });
+
+</script>
 </html>

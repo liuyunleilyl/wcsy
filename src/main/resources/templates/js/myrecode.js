@@ -4,6 +4,31 @@
 
 var recodeTitle, Publisher, currentID, recodeTime, flag = true;
 function Recodeload() {
+    //绑定任务下拉框
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/task/taskList",
+        dataType:"json",
+        contentType:"application/json;charset=UTF-8",
+        success: function(message){
+            if(message.code==200){
+                var RccodeTableData = message.data.records;
+                var tempIdStr = '<option  value="">选择</option>';
+                $("#rw").append(tempIdStr);
+                $.each(RccodeTableData, function (i, item) {
+                    var tempId = '<option  value="' + item.taskId + '">' + item.taskName + '</option>';
+                    $("#rw").append(tempId);
+                });
+                // 更新 。 这一步很重要
+                $('#rw').selectpicker('refresh');
+            }
+            else{
+                alert("请求失误");
+            }
+        }
+    });
+    //表格绑定
     $(function () {
         $('#table').bootstrapTable({
             method: "get",
@@ -63,37 +88,55 @@ function Recodeload() {
                     title: '核查',
                     field: 'hc',
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    formatter:function(value,row,index){
+                        return getFormatTime(value);
+                    }
                 },
                 {
                     title: '编辑',
                     field: 'bj',
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    formatter:function(value,row,index){
+                        return getFormatTime(value);
+                    }
                 },
                 {
                     title: '质检',
                     field: 'zj',
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    formatter:function(value,row,index){
+                        return getFormatTime(value);
+                    }
                 },
                 {
                     title: '二查',
                     field: 'ec',
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    formatter:function(value,row,index){
+                        return getFormatTime(value);
+                    }
                 },
                 {
                     title: '合库',
                     field: 'hk',
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    formatter:function(value,row,index){
+                        return getFormatTime(value);
+                    }
                 },
                 {
                     title: '上交',
                     field: 'sj',
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    formatter:function(value,row,index){
+                        return getFormatTime(value);
+                    }
                 },
                 {
                     title: '进度详情',
@@ -126,13 +169,53 @@ function getRecodeTableData() {
                 alert("请求失误");
             }
         }
-
     });
-
 }
 //根据条件查询
 function getDataByname(){
-    alert("接口整合中");
+    debugger;
+    var elem = document.getElementById("rw");
+    var index=elem.selectedIndex;
+    var name=elem.options[index].text;
+    var id=elem.options[index].value
+    if(name=="选择"){
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "/task/editTaskPlanList",
+            dataType:"json",
+            contentType:"application/json;charset=UTF-8",
+            success: function(message){
+                if(message.code==200){
+                    var RccodeTableData = message.data.records;
+                    $('#table').bootstrapTable("load", RccodeTableData);
+                }
+                else{
+                    alert("请求失误");
+                }
+            }
+        });
+    }else{
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "/task/editTaskPlanList",
+            dataType:"json",
+            data:{
+                taskName:name
+            },
+            contentType:"application/json;charset=UTF-8",
+            success: function(message){
+                if(message.code==200){
+                    var RccodeTableData = message.data.records;
+                    $('#table').bootstrapTable("load", RccodeTableData);
+                }
+                else{
+                    alert("请求失误");
+                }
+            }
+        });
+    }
 }
 //根据计划ID查询进度
 function editRecode(id) {
@@ -188,9 +271,7 @@ function getFormatTime(time) {
     var h = time.getHours();
     var mm = time.getMinutes();
     var s = time.getSeconds();
-    return y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
+    return y + '-' + add0(m) + '-' + add0(d);
 }
 function add0(m) { return m < 10 ? '0' + m : m }
-
-
 
