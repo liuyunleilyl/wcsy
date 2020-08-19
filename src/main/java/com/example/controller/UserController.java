@@ -44,8 +44,16 @@ public class UserController {
 
     @GetMapping("/userCodeAndName")
     @ApiOperation(value = "查询用户账号和用户姓名下拉框", notes = "查询用户账号和用户姓名下拉框")
-    public ResultData<List<ValueAndLabelTemplate>> userCodeAndName(){
-        List<ValueAndLabelTemplate> list = userTService.userCodeAndName();
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userRole", value = "用户角色", required = false, dataType = "query",
+                    example = "作业员", paramType = "query"),
+            @ApiImplicitParam(name = "userCode", value = "用户账号", required = false, dataType = "query",
+                    example = "liuyl", paramType = "query")
+    })
+    public ResultData<List<ValueAndLabelTemplate>>
+                                userCodeAndName(@RequestParam(value = "userRole",required = false) String userRole,
+                                @RequestParam(value = "userCode",required = false) String userCode){
+        List<ValueAndLabelTemplate> list = userTService.userCodeAndName(userRole,userCode);
         return ResultData.success(list);
     }
 

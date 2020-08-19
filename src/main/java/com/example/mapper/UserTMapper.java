@@ -5,6 +5,7 @@ import com.example.entity.UserT;
 import com.example.model.vo.ValueAndLabelTemplate;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -18,5 +19,6 @@ public interface UserTMapper  extends BaseMapper<UserT> {
      * @Return: java.util.List<com.example.model.vo.ValueAndLabelTemplate>
      * @Description:查询 用户账号和用户姓名
      */
-    List<ValueAndLabelTemplate> userCodeAndName();
+    List<ValueAndLabelTemplate> userCodeAndName(@RequestParam("userRole") String userRole
+                                                ,@RequestParam("userCode") String userCode);
 }

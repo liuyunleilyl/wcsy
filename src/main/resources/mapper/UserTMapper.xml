@@ -23,6 +23,14 @@
   </sql>
     <select id="userCodeAndName" resultType="com.example.model.vo.ValueAndLabelTemplate">
       select USER_CODE value,USER_NAME label from user_t
+      <where>
+        <if test=" userRole != null and userRole != '' ">
+          and USER_ROLE = #{userRole}
+        </if>
+        <if test=" userCode != null and userCode != '' ">
+          and USER_CODE = #{userCode}
+        </if>
+      </where>
     </select>
 
 </mapper>

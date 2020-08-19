@@ -32,7 +32,7 @@ public interface UserTService {
      * @Return: java.util.List<com.example.model.vo.ValueAndLabelTemplate>
      * @Description: 用户账号和用户姓名
      */
-    List<ValueAndLabelTemplate> userCodeAndName();
+    List<ValueAndLabelTemplate> userCodeAndName(String userRole,String userCode);
 
     /** 
      * @Author: liuyl

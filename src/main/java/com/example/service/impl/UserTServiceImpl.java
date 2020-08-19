@@ -67,8 +67,8 @@ public class UserTServiceImpl extends ServiceImpl<UserTMapper, UserT> implements
     }
 
     @Override
-    public List<ValueAndLabelTemplate> userCodeAndName() {
-        List<ValueAndLabelTemplate> list = this.baseMapper.userCodeAndName();
+    public List<ValueAndLabelTemplate> userCodeAndName(String userRole,String userCode) {
+        List<ValueAndLabelTemplate> list = this.baseMapper.userCodeAndName(userRole,userCode);
         return list;
     }
 
