@@ -33,4 +33,14 @@ public interface TaskTMapper extends BaseMapper<TaskT> {
     List<TaskPlanTListResVO> editTaskPlanList(@Param("page") Page<TaskPlanTListResVO> page,
                                               @Param("taskPlanId") String taskPlanId,
                                               @Param("taskName") String taskName);
+
+    /**
+     * @Author: liuyl
+     * @Date: 2020/8/20 20:39
+     * @Param: []
+     * @Return: java.util.List<com.example.model.vo.TaskScheduleTResVO>
+     * @Description: 管理员-根据某项任务计划查看对应某项的任务进度
+     */
+    List<TaskScheduleTResVO> queryTaskScheduleTS(@Param("userCode") String userCode,
+                                                 @Param("taskId") String taskId);
 }

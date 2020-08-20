@@ -15,6 +15,7 @@ import com.example.mapper.TaskScheduleTMapper;
 import com.example.mapper.TaskTMapper;
 import com.example.model.vo.*;
 import com.example.service.TaskService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -193,5 +194,22 @@ public class TaskServiceImpl extends ServiceImpl<TaskTMapper, TaskT> implements 
         }
         //删除计划
         taskPlanTMapper.deleteBatchIds(taskPlanIds);
+    }
+
+    @Override
+    public TaskScheduleTResVO taskScheduleListByTaskPlan(String taskPlanId) {
+        TaskScheduleTResVO res = new TaskScheduleTResVO();
+        TaskPlanT taskPlanT = taskPlanTMapper.selectById(taskPlanId);
+        if(ToolUtil.isNotEmpty(taskPlanT)){
+            String userCode = taskPlanT.getUserCode();
+            String taskId = taskPlanT.getTaskId();
+            if(ToolUtil.isNotEmpty(userCode) && ToolUtil.isNotEmpty(taskId)){
+                List<TaskScheduleTResVO> resList = this.baseMapper.queryTaskScheduleTS(userCode,taskId);
+                if(ToolUtil.isNotEmpty(resList)){
+                    res = resList.get(0);
+                }
+            }
+        }
+        return res;
     }
 }

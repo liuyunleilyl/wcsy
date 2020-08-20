@@ -84,4 +84,13 @@ public interface TaskService {
      * @Description: 管理员-删除任务计划
      */
     void invalidTaskPlan(List<String> taskPlanIds);
+
+    /**
+     * @Author: liuyl
+     * @Date: 2020/8/20 20:27
+     * @Param: [taskPlanId]
+     * @Return: com.baomidou.mybatisplus.plugins.Page<com.example.model.vo.TaskScheduleTResVO>
+     * @Description: 管理员-根据某项任务计划查看对应某项的任务进度
+     */
+    TaskScheduleTResVO taskScheduleListByTaskPlan(String taskPlanId);
 }

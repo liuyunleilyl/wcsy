@@ -111,4 +111,10 @@ public class TaskController {
         return ResultData.success(pageList);
     }
 
+    @GetMapping("/taskScheduleListByTaskPlan")
+    @ApiOperation(value = "管理员-根据某项任务计划查看对应某项的任务进度", notes = "管理员-根据某项任务计划查看对应某项的任务进度")
+    public ResultData<TaskScheduleTResVO> taskScheduleListByTaskPlan(@RequestParam(value = "taskPlanId",required = true) String taskPlanId){
+        TaskScheduleTResVO pageList =  taskService.taskScheduleListByTaskPlan(taskPlanId);
+        return ResultData.success(pageList);
+    }
 }
