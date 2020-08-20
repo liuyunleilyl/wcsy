@@ -173,7 +173,6 @@ function getRecodeTableData() {
 }
 //根据条件查询
 function getDataByname(){
-    debugger;
     var elem = document.getElementById("rw");
     var index=elem.selectedIndex;
     var name=elem.options[index].text;
