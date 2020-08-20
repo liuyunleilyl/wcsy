@@ -48,7 +48,7 @@ function Recodeload() {
                     field: 'ID',
                     align: 'center',
                     valign: 'middle',
-                    visible: false
+                    //visible: false
                 },
                 {
                     title: "计划ID",
@@ -224,6 +224,33 @@ function editRecode(id) {
 function addRecode() {
     openlayer1()
     currentID = "";
+}
+
+function del(){
+    debugger;
+    var a= $('#table').bootstrapTable('getSelections');
+    if(a<1){
+        alert("请选中一行")
+    }else if(a.length==1){
+        var id=a[0].taskPlanId;
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "/task/invalidTaskPlan?taskPlanIds="+id,
+            contentType:"application/json;charset=UTF-8",
+            success: function(message){
+                if(message.code==200){
+                    alert("删除成功");
+                    getRecodeTableData();
+                }
+                else{
+                    alert("请求失误");
+                }
+            }
+        });
+    }else{
+        alert("请选中一行进行删除")
+    }
 }
 function getCurrentID() {
     return currentID;

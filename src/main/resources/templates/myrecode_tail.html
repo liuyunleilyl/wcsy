@@ -130,20 +130,21 @@
     }();
 
     function RSave() {
+        debugger;
         var a=$("#rwmc option:selected");
         var dataa={
-            "bj": $("#bj").val(),
-            "cj": $("#cj").val(),
+            "bj":getDate($("#bj").val()) ,
+            "cj":  getDate($("#cj").val())   ,
             "dlfq": $("#dlfq").val(),
-            "ec":$("#ec").val(),
-            "hc": $("#hc").val(),
-            "hk": $("#hk").val(),
+            "ec":getDate($("#ec").val()),
+            "hc": getDate($("#hc").val()),
+            "hk": getDate($("#hk").val()),
             "jcyName": $("#jcy").val(),
-            "sj": $("#sj").val(),
+            "sj": getDate($("#sj").val()),
             "taskName": a.text(),
             "taskYear": $("#rwsj").val(),
             "userCode": $("#zyy").val(),
-            "zj": $("#zj").val(),
+            "zj": getDate($("#zj").val()),
         };
         console.log(dataa);
         $.ajax({
@@ -154,6 +155,7 @@
             data:JSON.stringify(dataa),
             dataType: "json",
             success: function (result) {
+
                 if (result.code==200) {
                     alert("保存成功！！！");
                     parent.getRecodeTableData();
@@ -165,6 +167,14 @@
         });
 
     }
+
+    function getDate(strDate) {
+        var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
+            function (a) { return parseInt(a, 10) - 1; }).match(/\d+/g) + ')');
+        return date;
+    }
+
+
     function TaskCancel() {
         var index = parent.layer.getFrameIndex(window.name)
         parent.layer.close(index);
