@@ -65,7 +65,7 @@ public class TaskController {
     }
 
     @GetMapping("/editTaskPlanList")
-    @ApiOperation(value = "管理员-任务计划列表", notes = "管理员-任务计划列表")
+    @ApiOperation(value = "管理员-查案未完成的任务计划列表", notes = "管理员-查案未完成的任务计划列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "taskPlanId", value = "详情使用-任务表id", required = false, dataType = "String",
                     example = "1", paramType = "query"),

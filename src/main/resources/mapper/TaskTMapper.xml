@@ -36,14 +36,13 @@
     on a.USER_CODE = b.USER_CODE
     left join task_t c
     on a.TASK_ID = c.TASK_ID
-    <where>
-      <if test=" taskPlanId != null and taskPlanId != '' ">
-        a.TASK_PLAN_ID = #{taskPlanId}
-      </if>
-      <if test=" taskName != null and taskName != '' ">
-        c.TASK_NAME like concat('%',#{taskName},'%')
-      </if>
-    </where>
+    where a.WCBJ = '0'
+    <if test=" taskPlanId != null and taskPlanId != '' ">
+      and a.TASK_PLAN_ID = #{taskPlanId}
+    </if>
+    <if test=" taskName != null and taskName != '' ">
+      and c.TASK_NAME like concat('%',#{taskName},'%')
+    </if>
   </select>
 
 
