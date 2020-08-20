@@ -79,8 +79,8 @@ public class TaskController {
     }
 
     @PostMapping("/newTaskPlan")
-    @ApiOperation(value = "管理员-新增任务计划",
-            notes = "管理员-新增任务计划")
+    @ApiOperation(value = "管理员-新增/修改任务计划",
+            notes = "管理员-新增/修改任务计划")
     public SuccessResultData newTaskPlan(@Validated @RequestBody NewTaskPlanVO newTaskPlanVO){
         taskService.newTaskPlan(newTaskPlanVO);
         return ResultData.success();
@@ -97,12 +97,12 @@ public class TaskController {
         return SuccessResultData.success();
     }
 
-    @PostMapping("/editTaskPlanListOperation")
+    /*@PostMapping("/editTaskPlanListOperation")
     @ApiOperation(value = "管理员-计划列表选中一条修改任务计划", notes = "管理员-计划列表选中一条修改任务计划")
     public SuccessResultData editTaskPlanListOperation(@RequestBody List<TaskPlanTVO> taskPlanTVOList){
         taskService.editTaskPlanListOperation(taskPlanTVOList);
         return ResultData.success();
-    }
+    }*/
 
     @GetMapping("/taskScheduleList")
     @ApiOperation(value = "管理员-查看某项任务下所有人的任务进度", notes = "管理员-查看某项任务下所有人的任务进度")

@@ -22,8 +22,8 @@ public class NewTaskPlanVO {
     /**
      * 任务计划表id
      */
-    /*@ApiModelProperty("任务计划表id")
-    private String taskPlanId;*/
+    @ApiModelProperty("任务计划表id")
+    private String taskPlanId;
 
     /**
      * 任务ID

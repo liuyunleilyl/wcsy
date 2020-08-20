@@ -84,6 +84,14 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
         //判断任务完成标记
         String wcbj = getWcbj(insertTaskScheduleT);//完成标记
         if(ToolUtil.isEmpty(taskScheduleId)){//新增
+            Integer count = this.baseMapper.selectCount(
+                    new EntityWrapper<TaskScheduleT>()
+                            .eq("TASK_ID", taskScheduleTVO.getTaskId())
+                            .eq("USER_CODE", taskScheduleTVO.getUserCode())
+            );
+            if(count != 0){
+                throw new FailException("0001","该任务进度已经存在，请勿重复添加！");
+            }
             insertTaskScheduleT.setWcbj(wcbj);
             //插入进度表
             this.baseMapper.insert(insertTaskScheduleT);

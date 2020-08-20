@@ -8,13 +8,16 @@ import com.example.common.pagehelper.PageFactory;
 import com.example.common.tool.ToolUtil;
 import com.example.common.tool.UuidUtil;
 import com.example.entity.TaskPlanT;
+import com.example.entity.TaskScheduleT;
 import com.example.entity.TaskT;
 import com.example.mapper.TaskPlanTMapper;
+import com.example.mapper.TaskScheduleTMapper;
 import com.example.mapper.TaskTMapper;
 import com.example.model.vo.*;
 import com.example.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.validation.constraints.NotEmpty;
@@ -31,6 +34,8 @@ import java.util.List;
 public class TaskServiceImpl extends ServiceImpl<TaskTMapper, TaskT> implements TaskService {
     @Autowired
     private TaskPlanTMapper taskPlanTMapper;
+    @Autowired
+    private TaskScheduleTMapper taskScheduleTMapper;
 
     @Override
     public Page<TaskTVO> taskList(String taskName) {
@@ -80,8 +85,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskTMapper, TaskT> implements 
     @Override
     public void newTaskPlan(NewTaskPlanVO newTaskPlanVO) {
         TaskPlanT taskPlanT = new TaskPlanT();
+        String taskPlanId = newTaskPlanVO.getTaskPlanId();
         @NotEmpty(message = "任务年份必填！") String taskYear = newTaskPlanVO.getTaskYear();
         @NotEmpty(message = "任务内容必填") String taskName = newTaskPlanVO.getTaskName();
+        @NotEmpty(message = "作业员用户账号必填") String userCode = newTaskPlanVO.getUserCode();
         //通过任务年份和任务内容查询唯一的taskid
         List<TaskT> taskTList = this.baseMapper.selectList(
                 new EntityWrapper<TaskT>()
@@ -94,10 +101,23 @@ public class TaskServiceImpl extends ServiceImpl<TaskTMapper, TaskT> implements 
         //任务id
         String taskId = taskTList.get(0).getTaskId();
         ToolUtil.copyProperties(newTaskPlanVO,taskPlanT);
-        taskPlanT.setTaskPlanId(UuidUtil.getUuid());//id
-        taskPlanT.setTaskId(taskId);//任务id
-        taskPlanT.setWcbj("0");//完成标记未完成
-        taskPlanTMapper.insert(taskPlanT);
+        if(ToolUtil.isEmpty(taskPlanId)){//新增
+            Integer count = taskPlanTMapper.selectCount(
+                    new EntityWrapper<TaskPlanT>()
+                            .eq("TASK_ID", taskId)
+                            .eq("USER_CODE", userCode)
+            );
+            if(count != 0){
+                throw new FailException("0001","对应的作业员名下已经有该任务计划，请勿重复添加！");
+            }
+            taskPlanT.setTaskPlanId(UuidUtil.getUuid());//id
+            taskPlanT.setTaskId(taskId);//任务id
+            taskPlanT.setWcbj("0");//完成标记未完成
+            taskPlanTMapper.insert(taskPlanT);
+        }else{//修改
+            taskPlanT.setTaskId(taskId);//任务id
+            taskPlanTMapper.updateById(taskPlanT);
+        }
     }
 
     @Override
@@ -130,12 +150,48 @@ public class TaskServiceImpl extends ServiceImpl<TaskTMapper, TaskT> implements 
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void invalidTask(List<String> taskIds) {
+        //删除任务
         this.baseMapper.deleteBatchIds(taskIds);
+        /**
+         * 删除相关任务的计划和进度
+         */
+        for (String taskId:taskIds) {
+            //删除相关任务的计划
+            taskPlanTMapper.delete(
+                    new EntityWrapper<TaskPlanT>()
+                            .eq("TASK_ID",taskId)
+            );
+            //删除相关任务的进度
+            taskScheduleTMapper.delete(
+                    new EntityWrapper<TaskScheduleT>()
+                    .eq("TASK_ID",taskId)
+            );
+        }
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void invalidTaskPlan(List<String> taskPlanIds) {
+        /**
+         * 删除相关的进度
+         */
+        List<TaskPlanT> list = taskPlanTMapper.selectBatchIds(taskPlanIds);
+        if(ToolUtil.isNotEmpty(list)){
+            for (TaskPlanT taskPlanT:list) {
+                String userCode = taskPlanT.getUserCode();
+                String taskId = taskPlanT.getTaskId();
+                if(ToolUtil.isNotEmpty(userCode) && ToolUtil.isNotEmpty(taskId)){
+                    taskScheduleTMapper.delete(
+                            new EntityWrapper<TaskScheduleT>()
+                            .eq("USER_CODE",userCode)
+                            .eq("TASK_ID",taskId)
+                    );
+                }
+            }
+        }
+        //删除计划
         taskPlanTMapper.deleteBatchIds(taskPlanIds);
     }
 }
