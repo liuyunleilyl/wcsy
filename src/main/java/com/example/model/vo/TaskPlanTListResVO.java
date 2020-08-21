@@ -1,5 +1,6 @@
 package com.example.model.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -51,42 +52,49 @@ public class TaskPlanTListResVO {
     /**
      * 采集
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     @ApiModelProperty("采集")
     private Date cj;
 
     /**
      * 核查
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     @ApiModelProperty("核查")
     private Date hc;
 
     /**
      * 编辑
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     @ApiModelProperty("编辑")
     private Date bj;
 
     /**
      * 质检
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     @ApiModelProperty("质检")
     private Date zj;
 
     /**
      * 二查
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     @ApiModelProperty("二查")
     private Date ec;
 
     /**
      * 合库
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     @ApiModelProperty("合库")
     private Date hk;
 
     /**
      * 上交
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     @ApiModelProperty("上交")
     private Date sj;
 
