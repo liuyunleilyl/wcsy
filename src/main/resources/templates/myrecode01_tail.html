@@ -25,41 +25,41 @@
                 <tbody>
                 <tr>
                     <td style="border-top: none" >任务名称：</td>
-                    <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"  id="rwmc" disabled="disabled" ></td>
+                    <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"  id="rwmca" disabled="disabled" ></td>
                 </tr>
                 <tr>
                     <td>任务时间：</td>
-                    <td  style="text-align: left"><input type="text"  id="rwsj" disabled="disabled" ></td>
+                    <td  style="text-align: left"><input type="text"  id="rwsja" disabled="disabled" ></td>
                     <td>地理分区：</td>
-                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="dlfq" disabled="disabled"></td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="dlfqa" disabled="disabled"></td>
                 </tr>
                 <tr>
                     <td>作业员：</td>
-                    <td  style="text-align: left"><input type="text" class="long_text" id="zyy" disabled="disabled"></td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="zyya" disabled="disabled"></td>
                     <td>检查员：</td>
-                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="jcy" disabled="disabled"></td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="jcya" disabled="disabled"></td>
                 </tr>
                 <tr>
                     <td>采集进度(%)：</td>
-                    <td  style="text-align: left"><input type="text" class="long_text" id="cj" disabled="disabled"></td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="cja" disabled="disabled"></td>
                     <td>核查进度(%)：</td>
-                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="hj" disabled="disabled"></td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="hca" disabled="disabled"></td>
                 </tr>
                 <tr>
                     <td>编辑进度(%)：</td>
-                    <td  style="text-align: left"><input type="text" class="long_text" id="bj" disabled="disabled"></td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="bja" disabled="disabled"></td>
                     <td>质检进度(%)：</td>
-                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="zj" disabled="disabled"></td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="zja" disabled="disabled"></td>
                 </tr>
                 <tr>
                     <td>二查进度(%)：</td>
-                    <td  style="text-align: left"><input type="text" class="long_text" id="ec" disabled="disabled"></td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="eca" disabled="disabled"></td>
                     <td>合库进度(%)：</td>
-                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="hk" disabled="disabled"></td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="hka" disabled="disabled"></td>
                 </tr>
                 <tr>
                     <td>上交进度(%)：</td>
-                    <td  style="text-align: left"><input type="text" class="long_text" id="sj" disabled="disabled"></td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="sja" disabled="disabled"></td>
                 </tr>
                 </tbody>
             </table>
@@ -74,10 +74,6 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <script src="js/date/js/laydate.js"></script>
 <script>
-    debugger;
-    var url = window.location.search;
-    var id=url.split("?")[1].split("=")[1];
-    alert(id);
     !function () {
         laydate.skin('danlan');//切换皮肤，请查看skins下面皮肤库
     }();
@@ -87,6 +83,39 @@
         parent.layer.close(index);
     }
 
+
+    var url = window.location.search;
+    var id=url.split("?")[1].split("=")[1];
+    getdata();
+    function getdata(){
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "/task/taskScheduleListByTaskPlan?taskPlanId="+id,
+            dataType:"json",
+            contentType:"application/json;charset=UTF-8",
+            success: function(message){
+                debugger;
+                if(message.code==200){
+                    document.getElementById('rwmca').value=message.data.taskName;
+                    document.getElementById('rwsja').value=message.data.taskYear;
+                    document.getElementById('dlfqa').value=message.data.dlfq;
+                    document.getElementById('zyya').value=message.data.userName;
+                    document.getElementById('jcya').value=message.data.jcyName;
+                    document.getElementById('cja').value=message.data.cj;
+                    document.getElementById('hca').value=message.data.hc;
+                    document.getElementById('bja').value=message.data.bj;
+                    document.getElementById('zja').value=message.data.zj;
+                    document.getElementById('eca').value=message.data.ec;
+                    document.getElementById('hka').value=message.data.hk;
+                    document.getElementById('sja').value=message.data.sj;
+                }
+                else{
+                    alert("请求失误");
+                }
+            }
+        });
+    }
 
     //时间格式化函数
     function getFormatTime(time) {

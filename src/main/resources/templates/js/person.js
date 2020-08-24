@@ -19,100 +19,85 @@ function Personload() {
 
             {
                 checkbox:"true",
-                field: 'ID',
+                field: 'userId',
                 align: 'center',
                 valign: 'middle'
             },
             {
                 title: "用户名",
-                field: 'class',
+                field: 'userCode',
+                align: 'center',
+                valign: 'middle'
+            },
+            {
+                title: '密码',
+                field: 'password',
+                align: 'center',
+                valign: 'middle'
+            },
+            {
+                title: '姓名',
+                field: 'userName',
                 align: 'center',
                 valign: 'middle'
             },
             {
                 title: '角色',
-                field: 'sex',
+                field: 'userRole',
                 align: 'center',
                 valign: 'middle'
             },
-            {
-                title: '部门',
-                field: 'type',
-                align: 'center'
-            },
-            {
-                title: '密码',
-                field: 'work',
-                align: 'center'
-            },
-            {
-                title: '状态',
-                field: 'name',
-                align: 'center',
-                valign: 'middle'
-            },
-           
-            {
+            /*{
                 title: '操作',
                 field: '',
                 align: 'center',
+                valign: 'middle',
                 formatter: function (value, row) {
                     var e = '<button button="#" mce_href="#" onclick="delNotice(\'' + row.WORKRECORDID + '\')">删除</button> '
-                    var d = '<button button="#" mce_href="#" onclick="editNotice(\'' + row.WORKRECORDID + '\')">编辑</button> ';
-                    return e + d;
+                    return e;
                 }
-            }
+            }*/
         ]
     });
     getData();
 }
-function getData() {
 
+//查询全部用户信息
+function getData() {
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/user/userList",
+        dataType:"json",
+        contentType:"application/json;charset=UTF-8",
+        success: function(message){
+            if(message.code==200){
+                var RccodeTableData = message.data.records;
+                $('#table').bootstrapTable("load", RccodeTableData);
+            }
+            else{
+                alert("请求失误");
+            }
+        }
+
+    });
 }
 function add() {
     openlayer()
     currentID = "";
 }
-function edit(id) {
-    openlayer()
-    currentID = id;
-}
-function del(id) {
-    alert(id)
-    var NoticeId = id;
-    $.ajax({
-        url: '../WorkRecord/DeleteWork?workId=' + NoticeId,
-        type: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            if (data.data) {
-                alert("删除成功！")
-                getData();
-            } else {
-                alert("删除失败")
-            }
-        },
-        error: function (err) {
-        }
-    });
-}
-function getCurrentID() {
-    return currentID;
-}
-function openlayer(id){
+function openlayer(){
     layer.open({
         type: 2,
         title: '添加信息',
         shadeClose: true,
         shade: 0.5,
         skin: 'layui-layer-rim',
-//            maxmin: true,
         closeBtn:2,
         area: ['80%', '90%'],
         shadeClose: true,
         closeBtn: 2,
         content: 'person_tail.html'
-        //iframe的url
     });
 }
 

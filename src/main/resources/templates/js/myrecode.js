@@ -144,7 +144,7 @@ function Recodeload() {
                     align: 'center',
                     valign: 'middle',
                     formatter: function (value, row) {
-                        var e = '<button button="#" mce_href="#" onclick="editRecode(\'' + row.WORKRECORDID + '\')">查看</button> ';
+                        var e = '<button button="#" mce_href="#" onclick="editRecode(\'' + row.taskPlanId + '\')">查看</button> ';
                         return e;
                     }
                 }
@@ -229,7 +229,6 @@ function addRecode() {
 }
 
 function del(){
-    debugger;
     var a= $('#table').bootstrapTable('getSelections');
     if(a<1){
         alert("请选中一行")
