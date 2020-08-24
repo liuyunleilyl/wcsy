@@ -40,6 +40,52 @@
                     <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="jcy" disabled="disabled"></td>
                 </tr>
                 <tr>
+                    <td>采集进度(%)：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="cjjd"></td>
+                </tr>
+                <tr>
+                    <td>核查进度(%)：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="hjjd"></td>
+                </tr>
+                <tr>
+                    <td>编辑进度(%)：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="bjjd"></td>
+                </tr>
+                <tr>
+                    <td>质检进度(%)：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="zjjd"></td>
+                </tr>
+                <tr>
+                    <td>二查进度(%)：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="ecjd"></td>
+                </tr>
+                <tr>
+                    <td>合库进度(%)：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="hkjd"></td>
+                </tr>
+                <tr>
+                    <td>上交进度(%)：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="sjjd"></td>
+                </tr>
+                </tbody>
+                <!--<tbody>
+                <tr>
+                    <td style="border-top: none" >任务名称：</td>
+                    <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"  id="rwmc" disabled="disabled" ></td>
+                </tr>
+                <tr>
+                    <td>任务时间：</td>
+                    <td  style="text-align: left"><input type="text"  id="rwsj" disabled="disabled" ></td>
+                    <td>地理分区：</td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="dlfq" disabled="disabled"></td>
+                </tr>
+                <tr>
+                    <td>作业员：</td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="zyy" disabled="disabled"></td>
+                    <td>检查员：</td>
+                    <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="jcy" disabled="disabled"></td>
+                </tr>
+                <tr>
                     <td>采集计划：</td>
                     <td  style="text-align: left"><input type="text" class="long_text" id="cjjh" disabled="disabled"></td>
                     <td>采集进度(%)：</td>
@@ -81,7 +127,7 @@
                     <td>上交进度(%)：</td>
                     <td colspan = "3" style="text-align: left"><input type="text" class="long_text" id="sjjd"></td>
                 </tr>
-                </tbody>
+                </tbody>-->
             </table>
         </div>
     </div>
@@ -95,30 +141,48 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <script src="js/date/js/laydate.js"></script>
 <script>
-    function RecodeSave1() {
-        alert("保存成功");
-        /*var time=$("#rwsj").val();
-        var dataa={
-            taskYear:time,
-            taskName:$("#rwmc").val(),
-        };
+
+    var hre=window.location.href;
+    var two=hre.split("#")[1];
+    var taskid=two.split(",")[0];
+    var usercode=two.split(",")[1];
+    gettask();
+
+    function gettask(){
         $.ajax({
             async: false,
-            type: "POST",
-            url: "/task/newTask",
+            type: "GET",
+            url: "/taskSchedule/newTaskScheduleInit?userCode="+usercode+"&taskId="+taskid,
+            dataType:"json",
             contentType:"application/json;charset=UTF-8",
-            data:JSON.stringify(dataa),
-             dataType: "json",
-            success: function (result) {
-                if (result.code==200) {
-                    alert("保存成功！！！");
-                    parent.getRecodeTableData();
-                    TaskCancel();
-                } else {
-                    alert("保存失败！！！")
+            success: function(message){
+                debugger;
+                if(message.code==200){
+                    var data = message.data;
+                    alert(data.taskName);
+                }
+                else{
+                    alert("请求失误");
                 }
             }
-        });*/
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function RecodeSave1() {
+        alert("保存成功");
     }
 
     function TaskCancel() {

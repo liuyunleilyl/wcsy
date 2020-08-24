@@ -1,15 +1,17 @@
 /**
  * Created by Administrator on 2016/8/4.
  */
+var hre=window.location.href;
+var usercode=hre.split("#")[1];
 
-var  Publisher, currentID;
+
+var  currentID;
 function Recodeload() {
     $(function () {
         $('#table').bootstrapTable({
             method: "get",
             striped: true,
             singleSelect: false,
-
             dataType: "json",
             pagination: true, //分页
             pageSize: 10,
@@ -20,41 +22,106 @@ function Recodeload() {
             columns: [
                 {
                     checkbox:"true",
-                    field: 'taskId',
+                    field: 'ID',
+                    align: 'center',
+                    valign: 'middle',
+                    //visible: false
+                },
+                {
+                    title: "计划ID",
+                    field: 'taskPlanId',
+                    align: 'center',
+                    valign: 'middle',
+                    visible: false
+                },
+                {
+                    title: '作业员',
+                    field: 'userName',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: "年份",
-                    field: 'taskYear',
+                    title: '检查员',
+                    field: 'jcyName',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: '任务名称',
-                    field: 'taskName',
+                    title: '地理分区',
+                    field: 'dlfq',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: '完成情况',
-                    field: 'wcbj',
+                    title: '采集',
+                    field: 'cj',
                     align: 'center',
                     valign: 'middle',
                     formatter:function(value,row,index){
-                        if(value==0){
-                            return "未完成";
-                        }else{
-                            return "完成";
-                        }
+                        return getFormatTime(value);
                     }
                 },
                 {
-                    title: '计划与进度',
-                    field: 'id',
+                    title: '核查',
+                    field: 'hc',
                     align: 'center',
+                    valign: 'middle',
+                    formatter:function(value,row,index){
+                        return getFormatTime(value);
+                    }
+                },
+                {
+                    title: '编辑',
+                    field: 'bj',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter:function(value,row,index){
+                        return getFormatTime(value);
+                    }
+                },
+                {
+                    title: '质检',
+                    field: 'zj',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter:function(value,row,index){
+                        return getFormatTime(value);
+                    }
+                },
+                {
+                    title: '二查',
+                    field: 'ec',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter:function(value,row,index){
+                        return getFormatTime(value);
+                    }
+                },
+                {
+                    title: '合库',
+                    field: 'hk',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter:function(value,row,index){
+                        return getFormatTime(value);
+                    }
+                },
+                {
+                    title: '上交',
+                    field: 'sj',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter:function(value,row,index){
+                        return getFormatTime(value);
+                    }
+                },
+                {
+                    title: '进度详情',
+                    field: '',
+                    align: 'center',
+                    valign: 'middle',
                     formatter: function (value, row) {
-                        var e = '<button button="#" mce_href="#" onclick="editRecode(\'' + row.WORKRECORDID + '\')">详情</button> ';
+                        var e = '<button button="#" mce_href="#" onclick="editRecode(\'' + row.taskPlanId + '\')">填报</button> ';
                         return e;
                     }
                 }
@@ -67,7 +134,7 @@ function getRecodeTableData1() {
     $.ajax({
         async: false,
         type: "GET",
-        url: "/task/taskList",
+        url: "/taskPlan/taskPlanList?userCode="+usercode,
         dataType:"json",
         contentType:"application/json;charset=UTF-8",
         success: function(message){
@@ -79,32 +146,12 @@ function getRecodeTableData1() {
                 alert("请求失误");
             }
         }
-
-    });
-}
-//条件查询
-function getRecodeTableDataByname() {
-   alert("待接口");
-    $.ajax({
-        async: false,
-        type: "GET",
-        url: "/task/taskList",
-        dataType:"json",
-        contentType:"application/json;charset=UTF-8",
-        success: function(message){
-            if(message.code==200){
-                var RccodeTableData = message.data.records;
-                $('#table').bootstrapTable("load", RccodeTableData);
-            }
-            else{
-                alert("请求失误");
-            }
-        }
-
     });
 }
 
+var jihuaid;
 function editRecode(id) {
+    jihuaid=id;
     openlayer3()
     currentID = id;
 }
@@ -123,12 +170,23 @@ function openlayer3() {
         area: ['98%', '98%'],
         shadeClose: true,
         closeBtn: 2,
-        content:"zrecode_tail.html"
+        content:"zrecode_tail.html#"+jihuaid+","+usercode
 
     });
 }
 
 
-
+//时间格式化函数
+function getFormatTime(time) {
+    var time = new Date(time);
+    var y = time.getFullYear();
+    var m = time.getMonth() + 1;
+    var d = time.getDate();
+    var h = time.getHours();
+    var mm = time.getMinutes();
+    var s = time.getSeconds();
+    return y + '-' + add0(m) + '-' + add0(d);
+}
+function add0(m) { return m < 10 ? '0' + m : m }
 
 

@@ -33,8 +33,10 @@
                     <li class="office current"><div class="nav-header"><a href="zhome.html" target="right" class="ue-clear"><span>首页</span><i class="icon"></i></a></div></li>
                     <li class="land"><div class="nav-header"><a href="JavaScript:;" class="ue-clear" ><span>日常办公</span><i class="icon hasChild"></i></a></div>
                         <ul class="subnav">
-                            <li><a href="zrecode.html" target="right">我的任务</a></li>
-                            <li><a href="zmyrecode.html" target="right">进度公示</a></li>
+                            <!--<li><a href="zrecode.html" target="right">我的工作</a></li>
+                            <li><a href="zmyrecode.html" target="right">进度公示</a></li>-->
+                            <li><a id="one" target="right">我的工作</a></li>
+                            <li><a id="two" target="right">进度公示</a></li>
                         </ul>
                     </li>
                     <li class="part"><div class="nav-header"><a href="JavaScript:;" class="ue-clear" ><span>系统管理</span><i class="icon hasChild"></i></a></div>
@@ -74,4 +76,12 @@
 <script type="text/javascript" src="js/jquery.dialog.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script src="js/layer_v2.1/layer/layer.js"></script>
+<script>
+    var hre=window.location.href;
+    var usercode=hre.split("#")[1].replace("operator","").replace("AAAA","");
+
+    $('#one').attr('href','zrecode.html#'+usercode);
+    $('#two').attr('href','zmyrecode.html#'+usercode);
+
+</script>
 </html>
