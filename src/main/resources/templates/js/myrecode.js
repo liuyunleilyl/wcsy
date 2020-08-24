@@ -217,7 +217,9 @@ function getDataByname(){
     }
 }
 //根据计划ID查询进度
+var jihuaid;
 function editRecode(id) {
+    jihuaid=id;
     openlayer2()
     currentID = id;
 }
@@ -267,7 +269,6 @@ function openlayer1() {
         shadeClose: true,
         closeBtn: 2,
         content:"myrecode_tail.html"
-
     });
 };
 
@@ -282,7 +283,7 @@ function openlayer2() {
         area: ['98%', '98%'],
         shadeClose: true,
         closeBtn: 2,
-        content:"myrecode01_tail.html"
+        content:"myrecode01_tail.html?data="+jihuaid
 
     });
 }
