@@ -25,7 +25,7 @@ function Recodeload() {
                     field: 'ID',
                     align: 'center',
                     valign: 'middle',
-                    //visible: false
+                    visible: false
                 },
                 {
                     title: "计划ID",
@@ -33,6 +33,18 @@ function Recodeload() {
                     align: 'center',
                     valign: 'middle',
                     visible: false
+                },
+                {
+                    title: '年份',
+                    field: 'taskYear',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    title: '任务',
+                    field: 'taskName',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '作业员',
@@ -121,7 +133,7 @@ function Recodeload() {
                     align: 'center',
                     valign: 'middle',
                     formatter: function (value, row) {
-                        var e = '<button button="#" mce_href="#" onclick="editRecode(\'' + row.taskPlanId + '\')">填报</button> ';
+                        var e = '<button button="#" mce_href="#" onclick="editRecode(\'' + row.taskId + '\')">填报</button> ';
                         return e;
                     }
                 }
@@ -149,9 +161,9 @@ function getRecodeTableData1() {
     });
 }
 
-var jihuaid;
+var taskid;
 function editRecode(id) {
-    jihuaid=id;
+    taskid=id;
     openlayer3()
     currentID = id;
 }
@@ -170,7 +182,7 @@ function openlayer3() {
         area: ['98%', '98%'],
         shadeClose: true,
         closeBtn: 2,
-        content:"zrecode_tail.html#"+jihuaid+","+usercode
+        content:"zrecode_tail.html#"+taskid+","+usercode
 
     });
 }

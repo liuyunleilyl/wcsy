@@ -42,24 +42,18 @@
                 <tr>
                     <td>采集进度(%)：</td>
                     <td  style="text-align: left"><input type="text" class="long_text" id="cjjd"></td>
-                </tr>
-                <tr>
                     <td>核查进度(%)：</td>
-                    <td  style="text-align: left"><input type="text" class="long_text" id="hjjd"></td>
+                    <td  style="text-align: left"><input type="text" class="long_text" id="hcjd"></td>
                 </tr>
                 <tr>
                     <td>编辑进度(%)：</td>
                     <td  style="text-align: left"><input type="text" class="long_text" id="bjjd"></td>
-                </tr>
-                <tr>
                     <td>质检进度(%)：</td>
                     <td  style="text-align: left"><input type="text" class="long_text" id="zjjd"></td>
                 </tr>
                 <tr>
                     <td>二查进度(%)：</td>
                     <td  style="text-align: left"><input type="text" class="long_text" id="ecjd"></td>
-                </tr>
-                <tr>
                     <td>合库进度(%)：</td>
                     <td  style="text-align: left"><input type="text" class="long_text" id="hkjd"></td>
                 </tr>
@@ -133,7 +127,7 @@
     </div>
     <div class="bot_btn">
         <input class="btn" type="submit" value="保存" onclick="RecodeSave1()"/>
-        <button class="btn btn1"><a href="zrecode.html" target="right">返回</a></button>
+       <!--<button class="btn btn1"><a href="zrecode.html" target="right">返回</a></button>-->
     </div>
 </div>
 </form>
@@ -142,6 +136,7 @@
 <script src="js/date/js/laydate.js"></script>
 <script>
 
+    var jinduid;
     var hre=window.location.href;
     var two=hre.split("#")[1];
     var taskid=two.split(",")[0];
@@ -159,7 +154,20 @@
                 debugger;
                 if(message.code==200){
                     var data = message.data;
-                    alert(data.taskName);
+                    jinduid=data.taskScheduleId;
+                    $("#rwmc").val(data.taskName);//赋值
+                    $("#rwsj").val(data.taskYear);//赋值
+                    $("#dlfq").val(data.dlfq);//赋值
+                    $("#zyy").val(data.userName);//赋值
+                    $("#jcy").val(data.jcyName);//赋值
+                    //
+                    $("#cjjd").val(data.cj==null?0:data.cj);//赋值
+                    $("#hcjd").val(data.hc==null?0:data.hc);//赋值
+                    $("#bjjd").val(data.bj==null?0:data.bj);//赋值
+                    $("#zjjd").val(data.zj==null?0:data.zj);//赋值
+                    $("#ecjd").val(data.ec==null?0:data.ec);//赋值
+                    $("#hkjd").val(data.hk==null?0:data.hk);//赋值
+                    $("#sjjd").val(data.sj==null?0:data.sj);//赋值
                 }
                 else{
                     alert("请求失误");
@@ -168,21 +176,38 @@
         });
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     function RecodeSave1() {
-        alert("保存成功");
+        alert(jinduid);
+        var dataa={
+            "bj":$("#bjjd").val(),
+            "cj": $("#cjjd").val(),
+            "dlfq": $("#dlfq").val(),
+            "ec":$("#ecjd").val(),
+            "hc": $("#hcjd").val(),
+            "hk": $("#hkjd").val(),
+            "jcyName": $("#jcy").val(),
+            "sj": $("#sjjd").val(),
+            "taskId": taskid,
+            "userCode":usercode,
+            "zj": $("#zjjd").val(),
+        };
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "/taskSchedule/newTaskSchedule",
+            contentType:"application/json;charset=UTF-8",
+            data:JSON.stringify(dataa),
+            dataType: "json",
+            success: function (result) {
+                if (result.code==200) {
+                    alert("保存成功！！！");
+                    parent.getRecodeTableData1();
+                    TaskCancel();
+                } else {
+                    alert("保存失败！！！")
+                }
+            }
+        });
     }
 
     function TaskCancel() {
