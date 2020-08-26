@@ -26,70 +26,78 @@ function Recodeload() {
                     visible: false
                 },
                 {
-                    title: "时间",
-                    field: 'class',
+                    title: "年份",
+                    field: 'taskYear',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
                     title: '任务名称',
-                    field: 'sex',
+                    field: 'taskName',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
                     title: '作业员',
-                    field: 'type',
-                    align: 'center'
+                    field: 'userName',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '检查员',
-                    field: 'name',
+                    field: 'jcyName',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
                     title: '地理分区',
-                    field: 'name',
+                    field: 'dlfq',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
                     title: '采集',
-                    field: 'work',
-                    align: 'center'
+                    field: 'cj',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '核查',
-                    field: 'work',
-                    align: 'center'
+                    field: 'hc',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '编辑',
-                    field: 'work',
-                    align: 'center'
+                    field: 'bj',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '质检',
-                    field: 'work',
-                    align: 'center'
+                    field: 'zj',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '二查',
-                    field: 'work',
-                    align: 'center'
+                    field: 'ec',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '合库',
-                    field: 'work',
-                    align: 'center'
+                    field: 'hk',
+                    align: 'center',
+                    valign: 'middle'
                 },
                 {
                     title: '上交',
-                    field: 'work',
-                    align: 'center'
-                },
-                {
+                    field: 'sj',
+                    align: 'center',
+                    valign: 'middle'
+                }
+                /*,{
                     title: '进度详情',
                     field: 'id',
                     align: 'center',
@@ -97,25 +105,31 @@ function Recodeload() {
                         var e = '<button button="#" mce_href="#" onclick="editRecode(\'' + row.WORKRECORDID + '\')">查看</button> ';
                         return e;
                     }
-                }
+                }*/
             ]
         });
     });
    getRecodeTableData();
 }
+var hre=window.location.href;
+var usercode=hre.split("#")[1];
 function getRecodeTableData() {
-    alert("数据查询类别接口");
-    /*$.ajax({
+    $.ajax({
+        async: false,
         type: "GET",
-        url: "../WorkRecord/SearchWork?dtStart=" +recodeTitle  + "&dtEnd=" + Publisher + "&dtEnd=" +  recodeTime,
-        dataType: "json",
-        success: function (result) {
-            if (result.data) {
-                var RccodeTableData = result.data;
+        url: "/taskSchedule/unDoneAllSchedule?userCode="+usercode,
+        dataType:"json",
+        contentType:"application/json;charset=UTF-8",
+        success: function(message){
+            if(message.code==200){
+                var RccodeTableData = message.data.records;
                 $('#table').bootstrapTable("load", RccodeTableData);
             }
+            else{
+                alert("请求失误");
+            }
         }
-    })*/
+    });
 }
 //根据条件查询
 function getDataByname12(){

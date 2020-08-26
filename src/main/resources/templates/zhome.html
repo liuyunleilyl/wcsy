@@ -18,16 +18,16 @@
     	<ul class="toollist ue-clear">
     		<li>
             	<a href="" class="img" target="right"><img src="images/icon01.png" /></a>
-                <p><a href="" target="right">我的任务</a></p>
+                <p><a href="" target="right" id="one">我的任务</a></p>
             </li>
             <li>
                 <a href="" class="img"><img src="images/leave01.png" /></a>
-                <p><a href="">进度公示</a></p>
+                <p><a href="" id="two">进度公示</a></p>
             </li>
-            <li>
+            <!--<li>
                 <a href="" class="img" target="right"><img src="images/myFiles.png" /></a>
                 <p><a href="" target="right">个人信息</a></p>
-            </li>
+            </li>-->
             <li class="add-btn">
             	<img src="images/add.png" />
             </li>
@@ -50,6 +50,15 @@ $(".title-list ul").on("click","li",function(){
 });
 
 $(".duty").find("tbody").find("tr:even").css("backgroundColor","#eff6fa");
+
+
+var hre=window.location.href;
+var usercode=hre.split("#")[1];
+//两个功能
+$('#one').attr('href','zrecode.html#'+usercode);
+$('#two').attr('href','zmyrecode.html#'+usercode);
+
+
 </script>
 <script src="js/layer_v2.1/layer/layer.js"></script>
 </html>

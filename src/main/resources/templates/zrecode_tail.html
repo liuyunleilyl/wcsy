@@ -177,20 +177,38 @@
     }
 
     function RecodeSave1() {
-        alert(jinduid);
-        var dataa={
-            "bj":$("#bjjd").val(),
-            "cj": $("#cjjd").val(),
-            "dlfq": $("#dlfq").val(),
-            "ec":$("#ecjd").val(),
-            "hc": $("#hcjd").val(),
-            "hk": $("#hkjd").val(),
-            "jcyName": $("#jcy").val(),
-            "sj": $("#sjjd").val(),
-            "taskId": taskid,
-            "userCode":usercode,
-            "zj": $("#zjjd").val(),
-        };
+        var dataa;
+        if(jinduid==null){
+            dataa={
+                "bj":$("#bjjd").val(),
+                "cj": $("#cjjd").val(),
+                "dlfq": $("#dlfq").val(),
+                "ec":$("#ecjd").val(),
+                "hc": $("#hcjd").val(),
+                "hk": $("#hkjd").val(),
+                "jcyName": $("#jcy").val(),
+                "sj": $("#sjjd").val(),
+                "taskId": taskid,
+                "userCode":usercode,
+                "zj": $("#zjjd").val(),
+            };
+        }else{
+            dataa={
+                "bj":$("#bjjd").val(),
+                "cj": $("#cjjd").val(),
+                "dlfq": $("#dlfq").val(),
+                "ec":$("#ecjd").val(),
+                "hc": $("#hcjd").val(),
+                "hk": $("#hkjd").val(),
+                "jcyName": $("#jcy").val(),
+                "sj": $("#sjjd").val(),
+                "taskId": taskid,
+                "userCode":usercode,
+                "zj": $("#zjjd").val(),
+                "taskScheduleId":jinduid
+            };
+        }
+
         $.ajax({
             async: false,
             type: "POST",

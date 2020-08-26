@@ -20,7 +20,7 @@
                 <div class="welcome ue-clear"><span>欢迎您,</span><a href="javascript:void(0)" class="user-name" style="color: greenyellow;">作业员</a></div>
             </div>
             <div class="toolbar ue-clear">
-                <a href="zhome.html" class="home-btn" target="right">首页</a>
+                <a href="" class="home-btn" target="right" id="kaishisy">首页</a>
                 <a href="javascript:void(0)" class="quit-btn exit home-btn">退出</a>
             </div>
         </div>
@@ -30,7 +30,7 @@
             <div class="sidebar">
                 <h2 class="sidebar-header"><p>功能导航</p></h2>
                 <ul class="nav">
-                    <li class="office current"><div class="nav-header"><a href="zhome.html" target="right" class="ue-clear"><span>首页</span><i class="icon"></i></a></div></li>
+                    <li class="office current"><div class="nav-header"><a href="" target="right" class="ue-clear" id="shouye"><span>首页</span><i class="icon"></i></a></div></li>
                     <li class="land"><div class="nav-header"><a href="JavaScript:;" class="ue-clear" ><span>日常办公</span><i class="icon hasChild"></i></a></div>
                         <ul class="subnav">
                             <!--<li><a href="zrecode.html" target="right">我的工作</a></li>
@@ -39,15 +39,15 @@
                             <li><a id="two" target="right">进度公示</a></li>
                         </ul>
                     </li>
-                    <li class="part"><div class="nav-header"><a href="JavaScript:;" class="ue-clear" ><span>系统管理</span><i class="icon hasChild"></i></a></div>
+                    <!--<li class="part"><div class="nav-header"><a href="JavaScript:;" class="ue-clear" ><span>系统管理</span><i class="icon hasChild"></i></a></div>
                         <ul class="subnav">
                             <li><a href="zperson.html" target="right">个人信息</a></li>
                         </ul>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
             <div class="content">
-                <iframe src="zhome.html" id="iframe" width="100%" height="100%" frameborder="0" name="right" style="min-width: 1100px"></iframe>
+                <iframe src="" id="iframe" width="100%" height="100%" frameborder="0" name="right" style="min-width: 1100px"></iframe>
             </div>
         </div>
     </div>
@@ -80,8 +80,13 @@
     var hre=window.location.href;
     var usercode=hre.split("#")[1].replace("operator","").replace("AAAA","");
 
+    //两个功能
     $('#one').attr('href','zrecode.html#'+usercode);
     $('#two').attr('href','zmyrecode.html#'+usercode);
 
+    //首页
+    document.getElementById("iframe").src="zhome.html#"+usercode;
+    $('#shouye').attr('href','zhome.html#'+usercode);
+    $('#kaishisy').attr('href','zhome.html#'+usercode);
 </script>
 </html>
