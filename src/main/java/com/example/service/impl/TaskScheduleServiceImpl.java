@@ -55,6 +55,11 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
                             .eq("USER_CODE", userCode)
             );
             TaskT taskT = taskTMapper.selectById(taskId);
+            List<TaskPlanT> planList = taskPlanTMapper.selectList(
+                    new EntityWrapper<TaskPlanT>()
+                            .eq("TASK_ID", taskId)
+                            .eq("USER_CODE", userCode)
+            );
             //赋值用户信息
             if(ToolUtil.isNotEmpty(users) && ToolUtil.isNotEmpty(users.get(0))){
                 UserT userT = users.get(0);
@@ -64,6 +69,12 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
             if(ToolUtil.isNotEmpty(taskT)){
                 resVO.setTaskYear(taskT.getTaskYear());
                 resVO.setTaskName(taskT.getTaskName());
+            }
+            //赋值任务信息
+            if (ToolUtil.isNotEmpty(planList)){
+                TaskPlanT taskPlanT = planList.get(0);
+                resVO.setDlfq(taskPlanT.getDlfq());
+                resVO.setJcyName(taskPlanT.getJcyName());
             }
         }
         return resVO;
