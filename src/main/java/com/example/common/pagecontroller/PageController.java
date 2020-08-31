@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Controller
 public class PageController {
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
         return "login";
     }
