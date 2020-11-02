@@ -56,43 +56,43 @@ function Recodeload() {
                     valign: 'middle'
                 },
                 {
-                    title: '采集',
+                    title: '采集（%）',
                     field: 'cj',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: '核查',
+                    title: '核查（%）',
                     field: 'hc',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: '编辑',
+                    title: '编辑（%）',
                     field: 'bj',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: '质检',
+                    title: '一查（%）',//质检
                     field: 'zj',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: '二查',
+                    title: '二查（%）',
                     field: 'ec',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: '合库',
+                    title: '合库（%）',
                     field: 'hk',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
-                    title: '上交',
+                    title: '上交（%）',
                     field: 'sj',
                     align: 'center',
                     valign: 'middle'
