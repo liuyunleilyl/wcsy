@@ -103,7 +103,7 @@ function Recodeload() {
                     }
                 },
                 {
-                    title: '质检',
+                    title: '一查',
                     field: 'zj',
                     align: 'center',
                     valign: 'middle',
