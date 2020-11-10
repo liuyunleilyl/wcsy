@@ -3,6 +3,7 @@ package com.example.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.example.common.excelutil.ExcelUtil;
 import com.example.common.exceptionhandler.FailException;
 import com.example.common.pagehelper.PageFactory;
 import com.example.common.tool.ToolUtil;
@@ -18,10 +19,15 @@ import com.example.model.vo.TaskScheduleTResVO;
 import com.example.model.vo.TaskScheduleTVO;
 import com.example.service.TaskScheduleService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import cn.hutool.core.util.StrUtil;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -163,5 +169,93 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
             return "1";
         }
         return "0";//未完成
+    }
+
+    @Override
+    public void downloadUnDoneAllSchedule(String userCode, HttpServletRequest request, HttpServletResponse response) {
+        //数据源
+        List<TaskScheduleTResVO> list = this.baseMapper.uploadUnDoneAllSchedule(userCode);
+        //做导出逻辑
+        downloadExcel(list,request,response);
+    }
+
+    /** 
+     * @Author: liuyl
+     * @Date: 2020/11/10 10:18
+     * @Param: [list, request, response]
+     * @Return: void
+     * @Description: 根据数据源导出数据
+     */
+    private void downloadExcel(List<TaskScheduleTResVO> list, HttpServletRequest request, HttpServletResponse response) {
+        //excel标题
+        String[] title = {"市","县","作业员",
+                "采集（%）","核查（%）","编辑（%）","一查（%）","二查（%）","合库（%）","提交（%）"};
+        //excel文件名
+        String fileName = "基础测绘全流程管理系统-进度公示" + System.currentTimeMillis()+".xls";
+        //sheet名
+        String sheetName = "进度公示";
+        String[][] content  = new String[list.size()+1][title.length];
+        for (int i = 0; i < list.size(); i++) {
+            TaskScheduleTResVO taskScheduleTResVO = list.get(i);
+            if(ToolUtil.isNotEmpty(taskScheduleTResVO)){
+                String dlfqSource = taskScheduleTResVO.getDlfq();
+                if(StrUtil.isNotEmpty(dlfqSource)){
+                    List<List<String>> lists = getCityAndCounty();
+                    for (List<String> tempList:lists) {
+                        for (String dlfq:tempList) {
+                            if(dlfqSource.indexOf(dlfq) != -1){
+                                content[i][0] = tempList.get(0);
+                                content[i][1] = dlfq;
+                            }
+                        }
+                    }
+                }
+                /*content[i][0] = "宿州市";
+                content[i][1] = "埇桥区";*/
+                content[i][2] = taskScheduleTResVO.getJcyName();
+                content[i][3] = taskScheduleTResVO.getCj();
+                content[i][4] = taskScheduleTResVO.getHc();
+                content[i][5] = taskScheduleTResVO.getBj();
+                content[i][6] = taskScheduleTResVO.getZj();
+                content[i][7] = taskScheduleTResVO.getEc();
+                content[i][8] = taskScheduleTResVO.getHk();
+                content[i][9] = taskScheduleTResVO.getSj();
+            }
+        }
+        //创建HSSFWorkbook
+        HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);
+        //响应到客户端
+        try {
+            ExcelUtil.setResponseHeader(response, fileName);
+            OutputStream os = response.getOutputStream();
+            wb.write(os);
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @Author: liuyl
+     * @Date: 2020/11/10 16:39
+     * @Param: []
+     * @Return: java.util.List<java.util.List<java.lang.String>>
+     * @Description:  写死市县
+     */
+    public List<List<String>> getCityAndCounty(){
+        /**
+         * 以下全是安徽省的市和县
+         */
+        //宿州市
+        List<String> szs = Arrays.asList("宿州市","埇桥区", "砀山县", "萧县", "灵璧县", "泗县");
+        //马鞍山市
+        List<String> mass = Arrays.asList("马鞍山市","马鞍山市辖区", "当涂县", "含山县", "和县");
+        //蚌埠市
+        List<String> bfs = Arrays.asList("蚌埠市","蚌埠市辖区", "怀远县", "五河县", "固镇县");
+        //宣城市
+        List<String> xcs = Arrays.asList("宣城市","宣州区", "郎溪县", "泾县", "绩溪县", "旌德县", "宁国市", "广德市");
+        List<List<String>> lists = Arrays.asList(szs, mass, bfs, xcs);
+        return lists;
     }
 }

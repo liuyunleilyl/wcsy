@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotEmpty;
 
 /**
@@ -72,5 +74,19 @@ public class TaskScheduleController {
             @NotEmpty(message = "用户账号不能为空") @RequestParam(value = "userCode",required = true)String userCode){
         Page<TaskScheduleTResVO> pageList =  taskScheduleService.unDoneAllSchedule(userCode);
         return ResultData.success(pageList);
+    }
+
+    @GetMapping("/downloadUnDoneAllSchedule")
+    @ApiOperation(value = "管理员-进度公示-导出所有作业员未完成的和作业员自己相关的任务进度",
+            notes = "管理员-进度公示-导出所有作业员未完成的和作业员自己相关的任务进度")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userCode", value = "用户账号", required = false, dataType = "String",
+                    example = "liuyl", paramType = "query")
+    })
+    public ResultData downloadUnDoneAllSchedule(
+            @RequestParam(value = "userCode",required = false) String userCode,
+            HttpServletRequest request, HttpServletResponse response){
+        taskScheduleService.downloadUnDoneAllSchedule(userCode,request,response);
+        return SuccessResultData.success();
     }
 }

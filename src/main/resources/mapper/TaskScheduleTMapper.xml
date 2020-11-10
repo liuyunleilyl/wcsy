@@ -56,4 +56,17 @@
         and WCBJ = '0'
     )
   </select>
+  <select id="uploadUnDoneAllSchedule" resultType="com.example.model.vo.TaskScheduleTResVO">
+    select a.*,b.USER_NAME,c.TASK_YEAR,c.TASK_NAME
+    from task_schedule_t a
+    left join user_t b
+    on a.USER_CODE = b.USER_CODE
+    left join task_t c
+    on a.TASK_ID = c.TASK_ID
+    where a.WCBJ = '0'
+    <if test=" userCode != null and userCode != '' ">
+      and a.USER_CODE = #{userCode}
+    </if>
+    order by a.dlfq asc
+  </select>
 </mapper>

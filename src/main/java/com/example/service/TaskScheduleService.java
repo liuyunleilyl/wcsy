@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.example.model.vo.TaskScheduleTResVO;
 import com.example.model.vo.TaskScheduleTVO;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @Author: liuyl
  * @Date: 2020/6/10 10:19
@@ -38,4 +41,13 @@ public interface TaskScheduleService {
      * @Description: 作业员-进度公示-查看自己未完成的和自己相关的任务进度
      */
     Page<TaskScheduleTResVO> unDoneAllSchedule(String userCode);
+
+    /**
+     * @Author: liuyl
+     * @Date: 2020/11/9 16:30
+     * @Param: [userCode]
+     * @Return: com.baomidou.mybatisplus.plugins.Page<com.example.model.vo.TaskScheduleTResVO>
+     * @Description: 管理员-进度公示-导出所有作业员未完成的和作业员自己相关的任务进度
+     */
+    void downloadUnDoneAllSchedule(String userCode, HttpServletRequest request, HttpServletResponse response);
 }

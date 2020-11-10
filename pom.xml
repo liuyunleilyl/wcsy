@@ -21,6 +21,7 @@
         <fastjson.version>1.2.47</fastjson.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <elasticsearch.version>7.2.0</elasticsearch.version>
+        <poi.version>3.17</poi.version>
     </properties>
 
     <dependencies>
@@ -143,6 +144,22 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.2.0</version>
         </dependency>
     </dependencies>
 
