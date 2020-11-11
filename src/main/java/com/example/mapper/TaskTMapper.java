@@ -32,6 +32,7 @@ public interface TaskTMapper extends BaseMapper<TaskT> {
      */
     List<TaskPlanTListResVO> editTaskPlanList(@Param("page") Page<TaskPlanTListResVO> page,
                                               @Param("taskPlanId") String taskPlanId,
+                                              @Param("taskId") String taskId,
                                               @Param("taskName") String taskName);
 
     /**

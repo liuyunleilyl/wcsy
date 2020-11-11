@@ -56,7 +56,7 @@ public interface TaskService {
      * @Return: com.baomidou.mybatisplus.plugins.Page<com.example.model.vo.TaskPlanTListResVO>
      * @Description: 管理员-修改任务计划列表
      */
-    Page<TaskPlanTListResVO> editTaskPlanList(String taskPlanId,String taskName);
+    Page<TaskPlanTListResVO> editTaskPlanList(String taskPlanId,String taskId,String taskName);
 
     /** 
      * @Author: liuyl

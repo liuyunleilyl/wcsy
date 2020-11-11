@@ -23,6 +23,7 @@ import org.springframework.util.StringUtils;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -47,12 +48,14 @@ public class TaskServiceImpl extends ServiceImpl<TaskTMapper, TaskT> implements 
             list = this.baseMapper.selectPage(page,
                     new EntityWrapper<TaskT>()
                             .eq("WCBJ", "0")
+                    .orderDesc(Arrays.asList("TASK_NAME","TASK_YEAR"))
             );
         }else {
             list = this.baseMapper.selectPage(page,
                     new EntityWrapper<TaskT>()
                             .eq("WCBJ", "0")
                             .like("TASK_NAME",taskName)
+                            .orderDesc(Arrays.asList("TASK_NAME","TASK_YEAR"))
             );
         }
         for (TaskT taskT:list) {
@@ -130,9 +133,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskTMapper, TaskT> implements 
     }
 
     @Override
-    public Page<TaskPlanTListResVO> editTaskPlanList(String taskPlanId,String taskName) {
+    public Page<TaskPlanTListResVO> editTaskPlanList(String taskPlanId,String taskId,String taskName) {
         Page<TaskPlanTListResVO> page = PageFactory.defaultPage();
-        List<TaskPlanTListResVO> list = this.baseMapper.editTaskPlanList(page,taskPlanId,taskName);
+        List<TaskPlanTListResVO> list = this.baseMapper.editTaskPlanList(page,taskPlanId,taskId,taskName);
         page.setRecords(list);
         return page;
     }

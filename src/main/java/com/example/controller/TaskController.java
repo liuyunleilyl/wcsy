@@ -67,14 +67,17 @@ public class TaskController {
     @GetMapping("/editTaskPlanList")
     @ApiOperation(value = "管理员-查案未完成的任务计划列表", notes = "管理员-查案未完成的任务计划列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "taskPlanId", value = "详情使用-任务表id", required = false, dataType = "String",
+            @ApiImplicitParam(name = "taskPlanId", value = "详情使用-任务计划表id", required = false, dataType = "String",
+                    example = "1", paramType = "query"),
+            @ApiImplicitParam(name = "taskId", value = "详情使用-任务表id", required = false, dataType = "String",
                     example = "1", paramType = "query"),
             @ApiImplicitParam(name = "taskName", value = "查询条件-任务名称", required = false, dataType = "String",
                     example = "马鞍山市地理国情监测", paramType = "query")
     })
     public ResultData<Page<TaskPlanTListResVO>> editTaskPlanList(@RequestParam(value = "taskPlanId",required = false) String taskPlanId,
+                                                                 @RequestParam(value = "taskId",required = false) String taskId,
                                                                  @RequestParam(value = "taskName",required = false) String taskName){
-        Page<TaskPlanTListResVO> pageList =  taskService.editTaskPlanList(taskPlanId,taskName);
+        Page<TaskPlanTListResVO> pageList =  taskService.editTaskPlanList(taskPlanId,taskId,taskName);
         return ResultData.success(pageList);
     }
 

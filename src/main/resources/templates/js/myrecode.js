@@ -17,7 +17,7 @@ function Recodeload() {
                 var tempIdStr = '<option  value="">选择</option>';
                 $("#rw").append(tempIdStr);
                 $.each(RccodeTableData, function (i, item) {
-                    var tempId = '<option  value="' + item.taskId + '">' + item.taskName + '</option>';
+                    var tempId = '<option  value="' + item.taskId + '">' + item.taskYear + item.taskName + '</option>';
                     $("#rw").append(tempId);
                 });
                 // 更新 。 这一步很重要
@@ -201,7 +201,7 @@ function getDataByname(){
             url: "/task/editTaskPlanList",
             dataType:"json",
             data:{
-                taskName:name
+                taskId:id
             },
             contentType:"application/json;charset=UTF-8",
             success: function(message){

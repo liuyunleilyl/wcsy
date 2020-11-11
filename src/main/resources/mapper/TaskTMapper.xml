@@ -40,6 +40,9 @@
     <if test=" taskPlanId != null and taskPlanId != '' ">
       and a.TASK_PLAN_ID = #{taskPlanId}
     </if>
+    <if test=" taskId != null and taskId != '' ">
+      and c.TASK_ID = #{taskId}
+    </if>
     <if test=" taskName != null and taskName != '' ">
       and c.TASK_NAME like concat('%',#{taskName},'%')
     </if>

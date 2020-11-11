@@ -188,7 +188,7 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
      */
     private void downloadExcel(List<TaskScheduleTResVO> list, HttpServletRequest request, HttpServletResponse response) {
         //excel标题
-        String[] title = {"市","县","作业员",
+        String[] title = {"市","县","作业员","检查员",
                 "采集（%）","核查（%）","编辑（%）","一查（%）","二查（%）","合库（%）","提交（%）"};
         //excel文件名
         String fileName = "基础测绘全流程管理系统-进度公示" + System.currentTimeMillis()+".xls";
@@ -212,14 +212,15 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
                 }
                 /*content[i][0] = "宿州市";
                 content[i][1] = "埇桥区";*/
-                content[i][2] = taskScheduleTResVO.getJcyName();
-                content[i][3] = taskScheduleTResVO.getCj();
-                content[i][4] = taskScheduleTResVO.getHc();
-                content[i][5] = taskScheduleTResVO.getBj();
-                content[i][6] = taskScheduleTResVO.getZj();
-                content[i][7] = taskScheduleTResVO.getEc();
-                content[i][8] = taskScheduleTResVO.getHk();
-                content[i][9] = taskScheduleTResVO.getSj();
+                content[i][2] = taskScheduleTResVO.getUserName();
+                content[i][3] = taskScheduleTResVO.getJcyName();
+                content[i][4] = taskScheduleTResVO.getCj();
+                content[i][5] = taskScheduleTResVO.getHc();
+                content[i][6] = taskScheduleTResVO.getBj();
+                content[i][7] = taskScheduleTResVO.getZj();
+                content[i][8] = taskScheduleTResVO.getEc();
+                content[i][9] = taskScheduleTResVO.getHk();
+                content[i][10] = taskScheduleTResVO.getSj();
             }
         }
         //创建HSSFWorkbook
