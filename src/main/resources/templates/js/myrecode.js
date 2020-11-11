@@ -301,3 +301,30 @@ function getFormatTime(time) {
 }
 function add0(m) { return m < 10 ? '0' + m : m }
 
+function exportTaskSchdule(){
+    window.location.href = '/taskSchedule/downloadUnDoneAllSchedule'
+        // $.ajax({
+        //     async: false,
+        //     type: "GET",
+        //     url: "/taskSchedule/downloadUnDoneAllSchedule",
+        //     responseType: 'blob',
+        //     success(res){
+        //         let blob = new Blob([res], {type: `application/blob;charset=utf-8`});
+        //         // 获取heads中的filename文件名
+        //         let downloadElement = document.createElement('a');
+        //         // 创建下载的链接
+        //         let href = window.URL.createObjectURL(blob);
+        //         downloadElement.href = href;
+        //         // 下载后文件名
+        //         downloadElement.download = '111.xls';
+        //         document.body.appendChild(downloadElement);
+        //         // 点击下载
+        //         downloadElement.click();
+        //         // 下载完成移除元素
+        //         document.body.removeChild(downloadElement);
+        //         // 释放掉blob对象
+        //         window.URL.revokeObjectURL(href);
+        //
+        //     }
+        // });
+}
