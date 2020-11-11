@@ -172,9 +172,9 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
     }
 
     @Override
-    public void downloadUnDoneAllSchedule(String userCode, HttpServletRequest request, HttpServletResponse response) {
+    public void downloadUnDoneAllSchedule(String userCode,String taskId, HttpServletRequest request, HttpServletResponse response) {
         //数据源
-        List<TaskScheduleTResVO> list = this.baseMapper.uploadUnDoneAllSchedule(userCode);
+        List<TaskScheduleTResVO> list = this.baseMapper.uploadUnDoneAllSchedule(userCode,taskId);
         //做导出逻辑
         downloadExcel(list,request,response);
     }
@@ -189,7 +189,7 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
     private void downloadExcel(List<TaskScheduleTResVO> list, HttpServletRequest request, HttpServletResponse response) {
         //excel标题
         String[] title = {"市","县","作业员","检查员",
-                "采集（%）","核查（%）","编辑（%）","一查（%）","二查（%）","合库（%）","提交（%）"};
+                "采集（%）","核查（%）","编辑（%）","一查（%）","二查（%）","合库（%）","提交（%）","任务名称"};
         //excel文件名
         String fileName = "基础测绘全流程管理系统-进度公示" + System.currentTimeMillis()+".xls";
         //sheet名
@@ -221,6 +221,7 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
                 content[i][8] = taskScheduleTResVO.getEc();
                 content[i][9] = taskScheduleTResVO.getHk();
                 content[i][10] = taskScheduleTResVO.getSj();
+                content[i][11] = taskScheduleTResVO.getTaskYear()+taskScheduleTResVO.getTaskName();
             }
         }
         //创建HSSFWorkbook

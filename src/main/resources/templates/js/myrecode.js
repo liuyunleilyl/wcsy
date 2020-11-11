@@ -302,7 +302,17 @@ function getFormatTime(time) {
 function add0(m) { return m < 10 ? '0' + m : m }
 
 function exportTaskSchdule(){
-    window.location.href = '/taskSchedule/downloadUnDoneAllSchedule'
+    var elem = document.getElementById("rw");
+    var index=elem.selectedIndex;
+    var name=elem.options[index].text;
+    var id=elem.options[index].value;
+    if(name=="选择"){
+        window.location.href = '/taskSchedule/downloadUnDoneAllSchedule'
+    }else{
+        window.location.href = '/taskSchedule/downloadUnDoneAllSchedule?taskId='+id
+    }
+
+
         // $.ajax({
         //     async: false,
         //     type: "GET",

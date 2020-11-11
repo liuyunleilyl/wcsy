@@ -39,5 +39,5 @@ public interface TaskScheduleTMapper extends BaseMapper<TaskScheduleT> {
      * @Return: java.util.List<com.example.model.vo.TaskScheduleTResVO>
      * @Description: 管理员-进度公示-导出所有作业员未完成的和作业员自己相关的任务进度
      */
-    List<TaskScheduleTResVO> uploadUnDoneAllSchedule(@Param("userCode") String userCode);
+    List<TaskScheduleTResVO> uploadUnDoneAllSchedule(@Param("userCode") String userCode,@Param("taskId") String taskId);
 }

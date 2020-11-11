@@ -67,6 +67,9 @@
     <if test=" userCode != null and userCode != '' ">
       and a.USER_CODE = #{userCode}
     </if>
+    <if test=" taskId != null and taskId != '' ">
+      and a.TASK_ID = #{taskId}
+    </if>
     order by a.dlfq asc
   </select>
 </mapper>

@@ -49,5 +49,5 @@ public interface TaskScheduleService {
      * @Return: com.baomidou.mybatisplus.plugins.Page<com.example.model.vo.TaskScheduleTResVO>
      * @Description: 管理员-进度公示-导出所有作业员未完成的和作业员自己相关的任务进度
      */
-    void downloadUnDoneAllSchedule(String userCode, HttpServletRequest request, HttpServletResponse response);
+    void downloadUnDoneAllSchedule(String userCode,String taskId, HttpServletRequest request, HttpServletResponse response);
 }

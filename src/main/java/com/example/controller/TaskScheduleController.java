@@ -81,12 +81,15 @@ public class TaskScheduleController {
             notes = "管理员-进度公示-导出所有作业员未完成的和作业员自己相关的任务进度")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userCode", value = "用户账号", required = false, dataType = "String",
-                    example = "liuyl", paramType = "query")
+                    example = "liuyl", paramType = "query"),
+            @ApiImplicitParam(name = "taskId", value = "详情使用-任务表id", required = false, dataType = "String",
+                    example = "1", paramType = "query")
     })
     public ResultData downloadUnDoneAllSchedule(
             @RequestParam(value = "userCode",required = false) String userCode,
+            @RequestParam(value = "taskId",required = false) String taskId,
             HttpServletRequest request, HttpServletResponse response){
-        taskScheduleService.downloadUnDoneAllSchedule(userCode,request,response);
+        taskScheduleService.downloadUnDoneAllSchedule(userCode,taskId,request,response);
         return SuccessResultData.success();
     }
 }
