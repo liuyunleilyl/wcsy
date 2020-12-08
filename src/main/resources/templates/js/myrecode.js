@@ -290,6 +290,9 @@ function openlayer2() {
 
 //时间格式化函数
 function getFormatTime(time) {
+    if(!time){
+        return ''
+    }
     var time = new Date(time);
     var y = time.getFullYear();
     var m = time.getMonth() + 1;
