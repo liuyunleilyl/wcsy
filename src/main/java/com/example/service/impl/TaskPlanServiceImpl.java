@@ -39,6 +39,8 @@ public class TaskPlanServiceImpl extends ServiceImpl<TaskPlanTMapper, TaskPlanT>
     @Override
     public Page<TaskPlanTListResVO> taskPlanList(String userCode) {
         Page<TaskPlanTListResVO> page = PageFactory.defaultPage();
+        //由于前端做的数据分页，默认每页查询出来所有数据
+        page.setSize(1000000);
         List<TaskPlanTListResVO> resList = taskPlanTMapper.queryMineUnAchieveTaskPlan(page,userCode);
         page.setRecords(resList);
         return page;

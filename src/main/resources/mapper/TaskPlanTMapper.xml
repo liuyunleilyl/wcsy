@@ -38,6 +38,7 @@
         on a.TASK_ID = c.TASK_ID
         where a.USER_CODE = #{userCode}
         and a.WCBJ = '0'
+        order by a.dlfq asc
   </select>
 
 

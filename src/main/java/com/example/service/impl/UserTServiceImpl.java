@@ -75,6 +75,8 @@ public class UserTServiceImpl extends ServiceImpl<UserTMapper, UserT> implements
     @Override
     public Page<UserTVO> userList(String userId,String userName,String userRole) {
         Page<UserTVO> page = PageFactory.defaultPage();
+        //由于前端做的数据分页，默认每页查询出来所有数据
+        page.setSize(1000000);
         List<UserTVO> list = new ArrayList<>();
         EntityWrapper<UserT> ew = new EntityWrapper<>();
         if(!StringUtils.isEmpty(userName)){

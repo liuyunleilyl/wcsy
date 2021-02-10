@@ -50,8 +50,9 @@ public class TaskScheduleController {
     })
     public ResultData<TaskScheduleTResVO> newTaskScheduleInit(
             @NotEmpty(message = "用户账号不能为空") @RequestParam(value = "userCode",required = true)String userCode,
-            @NotEmpty(message = "任务id不能为空") @RequestParam(value = "taskId",required = true)String taskId){
-        TaskScheduleTResVO taskScheduleTResVO =  taskScheduleService.newTaskScheduleInit(userCode,taskId);
+            @NotEmpty(message = "任务id不能为空") @RequestParam(value = "taskId",required = true)String taskId,
+            @NotEmpty(message = "地理分区不能为空") @RequestParam(value = "dlfq",required = true)String dlfq){
+        TaskScheduleTResVO taskScheduleTResVO =  taskScheduleService.newTaskScheduleInit(userCode,taskId,dlfq);
         return ResultData.success(taskScheduleTResVO);
     }
 

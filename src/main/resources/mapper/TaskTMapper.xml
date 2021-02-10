@@ -46,6 +46,8 @@
     <if test=" taskName != null and taskName != '' ">
       and c.TASK_NAME like concat('%',#{taskName},'%')
     </if>
+    and 1 order by CONVERT(a.dlfq using gbk)
+    COLLATE gbk_chinese_ci ASC
   </select>
 
   <select id="queryTaskScheduleTS" resultType="com.example.model.vo.TaskScheduleTResVO">

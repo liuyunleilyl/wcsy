@@ -46,9 +46,9 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
     @Autowired
     private TaskPlanTMapper taskPlanTMapper;
     @Override
-    public TaskScheduleTResVO newTaskScheduleInit(String userCode, String taskId) {
+    public TaskScheduleTResVO newTaskScheduleInit(String userCode, String taskId,String dlfq) {
         TaskScheduleTResVO resVO = new TaskScheduleTResVO();
-        List<TaskScheduleTResVO> taskScheduleTS = this.baseMapper.newTaskScheduleInit(userCode,taskId);
+        List<TaskScheduleTResVO> taskScheduleTS = this.baseMapper.newTaskScheduleInit(userCode,taskId,dlfq);
         if(ToolUtil.isNotEmpty(taskScheduleTS)){
             resVO = taskScheduleTS.get(0);
         }else{//赋予默认值
@@ -65,6 +65,7 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
                     new EntityWrapper<TaskPlanT>()
                             .eq("TASK_ID", taskId)
                             .eq("USER_CODE", userCode)
+                            .eq("dlfq",dlfq)
             );
             //赋值用户信息
             if(ToolUtil.isNotEmpty(users) && ToolUtil.isNotEmpty(users.get(0))){
@@ -101,14 +102,14 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
         //判断任务完成标记
         String wcbj = getWcbj(insertTaskScheduleT);//完成标记
         if(ToolUtil.isEmpty(taskScheduleId)){//新增
-            Integer count = this.baseMapper.selectCount(
+            /*Integer count = this.baseMapper.selectCount(
                     new EntityWrapper<TaskScheduleT>()
                             .eq("TASK_ID", taskScheduleTVO.getTaskId())
                             .eq("USER_CODE", taskScheduleTVO.getUserCode())
             );
             if(count != 0){
                 throw new FailException("0001","该任务进度已经存在，请勿重复添加！");
-            }
+            }*/
             insertTaskScheduleT.setWcbj(wcbj);
             //插入进度表
             this.baseMapper.insert(insertTaskScheduleT);
@@ -149,6 +150,8 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
     @Override
     public Page<TaskScheduleTResVO> unDoneAllSchedule(String userCode) {
         Page<TaskScheduleTResVO> page = PageFactory.defaultPage();
+        //由于前端做的数据分页，默认每页查询出来所有数据
+        page.setSize(1000000);
         List<TaskScheduleTResVO> list = this.baseMapper.unDoneAllSchedule(userCode,page);
         page.setRecords(list);
         return page;

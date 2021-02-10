@@ -141,13 +141,14 @@
     var two=hre.split("#")[1];
     var taskid=two.split(",")[0];
     var usercode=two.split(",")[1];
+    var dlfq=two.split(",")[2];
     gettask();
 
     function gettask(){
         $.ajax({
             async: false,
             type: "GET",
-            url: "/taskSchedule/newTaskScheduleInit?userCode="+usercode+"&taskId="+taskid,
+            url: "/taskSchedule/newTaskScheduleInit?userCode="+usercode+"&taskId="+taskid+"&dlfq="+dlfq,
             dataType:"json",
             contentType:"application/json;charset=UTF-8",
             success: function(message){

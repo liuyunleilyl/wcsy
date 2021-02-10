@@ -38,6 +38,7 @@
     on a.TASK_ID = c.TASK_ID
     where a.USER_CODE = #{userCode}
     and a.TASK_ID = #{taskId}
+    and a.dlfq = #{dlfq}
   </select>
 
   <select id="unDoneAllSchedule" resultType="com.example.model.vo.TaskScheduleTResVO">

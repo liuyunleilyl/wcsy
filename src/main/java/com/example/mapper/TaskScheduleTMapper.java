@@ -21,7 +21,8 @@ public interface TaskScheduleTMapper extends BaseMapper<TaskScheduleT> {
      * @Return: java.util.List<com.example.entity.TaskScheduleT>
      * @Description: 作业员-我的工作-根据某一项任务计划添加该任务的任务进度页面-初始化
      */
-    List<TaskScheduleTResVO> newTaskScheduleInit(@Param("userCode") String userCode,@Param("taskId")String taskId);
+    List<TaskScheduleTResVO> newTaskScheduleInit(@Param("userCode") String userCode,@Param("taskId")String taskId,
+                                                 @Param("dlfq") String dlfq);
 
     /**
      * @Author: liuyl

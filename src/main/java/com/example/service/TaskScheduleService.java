@@ -22,7 +22,7 @@ public interface TaskScheduleService {
      * @Return: com.example.model.vo.TaskScheduleTVO
      * @Description: 作业员-我的工作-根据某一项任务计划添加该任务的任务进度页面-初始化
      */
-    TaskScheduleTResVO newTaskScheduleInit(String userCode, String taskId);
+    TaskScheduleTResVO newTaskScheduleInit(String userCode, String taskId,String dlfq);
 
     /**
      * @Author: liuyl

@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -42,6 +43,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskTMapper, TaskT> implements 
     @Override
     public Page<TaskTVO> taskList(String taskName) {
         Page<TaskTVO> page = PageFactory.defaultPage();
+        //由于前端做的数据分页，默认每页查询出来所有数据
+        page.setSize(1000000);
         List<TaskTVO> res = new ArrayList();
         List<TaskT> list = new ArrayList<>();
         if(StringUtils.isEmpty(taskName)){
@@ -106,13 +109,18 @@ public class TaskServiceImpl extends ServiceImpl<TaskTMapper, TaskT> implements 
         String taskId = taskTList.get(0).getTaskId();
         ToolUtil.copyProperties(newTaskPlanVO,taskPlanT);
         if(ToolUtil.isEmpty(taskPlanId)){//新增
-            Integer count = taskPlanTMapper.selectCount(
-                    new EntityWrapper<TaskPlanT>()
-                            .eq("TASK_ID", taskId)
-                            .eq("USER_CODE", userCode)
-            );
-            if(count != 0){
-                throw new FailException("0001","对应的作业员名下已经有该任务计划，请勿重复添加！");
+            //地理分区
+            String dlfq = newTaskPlanVO.getDlfq();
+            if(StrUtil.isNotEmpty(dlfq)){
+                Integer count = taskPlanTMapper.selectCount(
+                        new EntityWrapper<TaskPlanT>()
+                                .eq("TASK_ID", taskId)
+                                .eq("USER_CODE", userCode)
+                                .eq("dlfq",newTaskPlanVO.getDlfq())
+                );
+                if(count != 0){
+                    throw new FailException("0001","对应的作业员名下已经有相同地理分区的该任务计划，请勿重复添加！");
+                }
             }
             taskPlanT.setTaskPlanId(UuidUtil.getUuid());//id
             taskPlanT.setTaskId(taskId);//任务id
@@ -127,6 +135,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskTMapper, TaskT> implements 
     @Override
     public Page<TaskScheduleTResVO> taskScheduleList(String taskId) {
         Page<TaskScheduleTResVO> page = PageFactory.defaultPage();
+        //由于前端做的数据分页，默认每页查询出来所有数据
+        page.setSize(1000000);
         List<TaskScheduleTResVO> resList = this.baseMapper.taskScheduleList(page,taskId);
         page.setRecords(resList);
         return page;
@@ -135,6 +145,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskTMapper, TaskT> implements 
     @Override
     public Page<TaskPlanTListResVO> editTaskPlanList(String taskPlanId,String taskId,String taskName) {
         Page<TaskPlanTListResVO> page = PageFactory.defaultPage();
+        //由于前端做的数据分页，默认每页查询出来所有数据
+        page.setSize(1000000);
         List<TaskPlanTListResVO> list = this.baseMapper.editTaskPlanList(page,taskPlanId,taskId,taskName);
         page.setRecords(list);
         return page;

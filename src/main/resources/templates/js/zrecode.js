@@ -133,7 +133,8 @@ function Recodeload() {
                     align: 'center',
                     valign: 'middle',
                     formatter: function (value, row) {
-                        var e = '<button button="#" mce_href="#" onclick="editRecode(\'' + row.taskId + '\')">填报</button> ';
+                        // var e = '<button button="#" mce_href="#" onclick="editRecode(\'' + row.taskId + '\')">填报</button> ';
+                        var e = '<button button="#" mce_href="#" onclick="editRecode(\'' + row.taskId + '\',\'' + row.dlfq + '\')">填报</button> ';
                         return e;
                     }
                 }
@@ -162,16 +163,16 @@ function getRecodeTableData1() {
 }
 
 var taskid;
-function editRecode(id) {
+function editRecode(id,dlfq) {
     taskid=id;
-    openlayer3()
+    openlayer3(dlfq)
     currentID = id;
 }
 
 function getCurrentID() {
     return currentID;
 }
-function openlayer3() {
+function openlayer3(dlfq) {
     layer.open({
         type: 2,
         title: '计划与进度',
@@ -182,7 +183,7 @@ function openlayer3() {
         area: ['98%', '98%'],
         shadeClose: true,
         closeBtn: 2,
-        content:"zrecode_tail.html#"+taskid+","+usercode
+        content:"zrecode_tail.html#"+taskid+","+usercode+","+dlfq
 
     });
 }
