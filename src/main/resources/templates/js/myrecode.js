@@ -76,7 +76,7 @@ function Recodeload() {
                     valign: 'middle'
                 },
                 {
-                    title: '采集',
+                    title: '采集完成时间',
                     field: 'cj',
                     align: 'center',
                     valign: 'middle',
@@ -85,7 +85,7 @@ function Recodeload() {
                     }
                 },
                 {
-                    title: '核查',
+                    title: '核查完成时间',
                     field: 'hc',
                     align: 'center',
                     valign: 'middle',
@@ -94,7 +94,7 @@ function Recodeload() {
                     }
                 },
                 {
-                    title: '编辑',
+                    title: '编辑完成时间',
                     field: 'bj',
                     align: 'center',
                     valign: 'middle',
@@ -103,7 +103,7 @@ function Recodeload() {
                     }
                 },
                 {
-                    title: '一查',
+                    title: '一查完成时间',
                     field: 'zj',
                     align: 'center',
                     valign: 'middle',
@@ -112,7 +112,7 @@ function Recodeload() {
                     }
                 },
                 {
-                    title: '二查',
+                    title: '二查完成时间',
                     field: 'ec',
                     align: 'center',
                     valign: 'middle',
@@ -121,7 +121,7 @@ function Recodeload() {
                     }
                 },
                 {
-                    title: '合库',
+                    title: '合库完成时间',
                     field: 'hk',
                     align: 'center',
                     valign: 'middle',
@@ -130,7 +130,7 @@ function Recodeload() {
                     }
                 },
                 {
-                    title: '上交',
+                    title: '上交完成时间',
                     field: 'sj',
                     align: 'center',
                     valign: 'middle',

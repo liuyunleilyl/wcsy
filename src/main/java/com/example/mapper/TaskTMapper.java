@@ -43,5 +43,6 @@ public interface TaskTMapper extends BaseMapper<TaskT> {
      * @Description: 管理员-根据某项任务计划查看对应某项的任务进度
      */
     List<TaskScheduleTResVO> queryTaskScheduleTS(@Param("userCode") String userCode,
-                                                 @Param("taskId") String taskId);
+                                                 @Param("taskId") String taskId,
+                                                 @Param("dlfq") String dlfq);
 }

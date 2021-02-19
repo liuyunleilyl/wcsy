@@ -218,8 +218,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskTMapper, TaskT> implements 
         if(ToolUtil.isNotEmpty(taskPlanT)){
             String userCode = taskPlanT.getUserCode();
             String taskId = taskPlanT.getTaskId();
+            String dlfq = taskPlanT.getDlfq();
             if(ToolUtil.isNotEmpty(userCode) && ToolUtil.isNotEmpty(taskId)){
-                List<TaskScheduleTResVO> resList = this.baseMapper.queryTaskScheduleTS(userCode,taskId);
+                List<TaskScheduleTResVO> resList = this.baseMapper.queryTaskScheduleTS(userCode,taskId,dlfq);
                 if(ToolUtil.isNotEmpty(resList)){
                     res = resList.get(0);
                 }

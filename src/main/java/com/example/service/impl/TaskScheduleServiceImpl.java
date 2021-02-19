@@ -192,7 +192,7 @@ public class TaskScheduleServiceImpl extends ServiceImpl<TaskScheduleTMapper, Ta
     private void downloadExcel(List<TaskScheduleTResVO> list, HttpServletRequest request, HttpServletResponse response) {
         //excel标题
         String[] title = {"市","县","作业员","检查员",
-                "采集（%）","核查（%）","编辑（%）","一查（%）","二查（%）","合库（%）","提交（%）","任务名称"};
+                "采集完成时间（%）","核查完成时间（%）","编辑完成时间（%）","一查完成时间（%）","二查完成时间（%）","合库完成时间（%）","提交完成时间（%）","任务名称"};
         //excel文件名
         String fileName = "基础测绘全流程管理系统-进度公示" + System.currentTimeMillis()+".xls";
         //sheet名

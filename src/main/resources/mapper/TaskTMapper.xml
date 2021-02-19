@@ -59,6 +59,7 @@
     on a.TASK_ID = c.TASK_ID
     where a.TASK_ID = #{taskId}
     and a.USER_CODE = #{userCode}
+    and a.dlfq = #{dlfq}
   </select>
 
 
