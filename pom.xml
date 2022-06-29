@@ -21,7 +21,7 @@
         <fastjson.version>1.2.47</fastjson.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <elasticsearch.version>7.2.0</elasticsearch.version>
-        <poi.version>3.17</poi.version>
+        <poi.version>4.1.1</poi.version>
     </properties>
 
     <dependencies>
